@@ -51,6 +51,18 @@ package com.rj.leetcode_solution.leetcode.editor.cn;//给你 n 个非负整数 a
 //leetcode submit region begin(Prohibit modification and deletion)
 class SolutionT11 {
     public int maxArea(int[] height) {
+        // 1.枚举
+//        int maxArea = 0;
+//        for (int i = 0; i < height.length - 1; i++) {
+//            for (int j = i + 1; j < height.length; j++) {
+//                int area = (j - i) * Math.min(height[j], height[i]);
+//                maxArea = Math.max(maxArea, area);
+//            }
+//        }
+//        return maxArea;
+
+
+        // 2.  左右边界向中间收敛
         int maxArea = 0;
         for (int i = 0, j = height.length - 1 ; i < j;) {
             int minHeight = height[i] < height[j] ? height[i++] : height[j--];
