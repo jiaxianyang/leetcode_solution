@@ -64,7 +64,8 @@ class SolutionT15 {
 //            }
 //        }
 //        return new ArrayList<>(setResult);
-//
+
+        //暴力2
 //        if (nums == null || nums.length < 3)
 //            return new ArrayList<>();
 //
@@ -84,7 +85,91 @@ class SolutionT15 {
 //        }
 //
 //        return new ArrayList<>(res);
-        return null;
+
+        //双指针
+//        if (nums == null || nums.length < 3) {
+//            return new ArrayList<>();
+//        }
+//
+//        Set<List<Integer>> res = new HashSet<>();
+//
+//        Arrays.sort(nums);
+//
+//        for (int i = 0; i < nums.length - 2; i++) {
+//            int target = - nums[i];
+//            int left = i + 1;
+//            int right = nums.length - 1;
+//            while (left < right) {
+//                int sum = nums[left] + nums[right];
+//                if (sum == target) {
+//                    res.add(Arrays.asList(nums[i], nums[left], nums[right]));
+//                    left++;
+//                    right--;
+//                } else if (sum < target) {
+//                    left++;
+//                } else {
+//                    right--;
+//                }
+//            }
+//        }
+//        return new ArrayList<>(res);
+        // 双指针 优化版本
+//        if (nums == null || nums.length < 3) {
+//            return new ArrayList<>();
+//        }
+//
+//        List<List<Integer>> res = new ArrayList<>();
+//        Arrays.sort(nums);
+//        for (int i = 0; i < nums.length - 2; i++) {
+//            if (i > 0 && nums[i] == nums[i - 1]) continue;
+//            int target = -nums[i];
+//            int left = i + 1;
+//            int right = nums.length - 1;
+//            while (left < right) {
+//                int sum = nums[left] + nums[right];
+//                if (target == sum) {
+//                    res.add(Arrays.asList(nums[i], nums[left], nums[right]));
+//
+//                    while (left < right && nums[left] == nums[++left]) ;
+//                    while (left < right && nums[right] == nums[--right]) ;
+//                } else if (sum < target) {
+//                    left++;
+//                } else {
+//                    right--;
+//                }
+//            }
+//
+//        }
+//        return res;
+
+        //双指针优化1
+        if (nums == null || nums.length < 3) {
+            return new ArrayList<>();
+        }
+
+        List<List<Integer>> res = new ArrayList<>();
+        Arrays.sort(nums);
+        for (int i = 0; i < nums.length - 2; i++) {
+            if (i > 0 && nums[i] == nums[i - 1]) continue;
+            int target = -nums[i];
+            int left = i + 1;
+            int right = nums.length - 1;
+            while (left < right) {
+                int sum = nums[left] + nums[right];
+                if (target == sum) {
+                    res.add(Arrays.asList(nums[i], nums[left], nums[right]));
+
+                    while (left < right && nums[left] == nums[++left]) ;
+                    while (left < right && nums[right] == nums[--right]) ;
+                } else if (sum < target) {
+                    left++;
+                } else {
+                    right--;
+                }
+            }
+
+        }
+        return res;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
