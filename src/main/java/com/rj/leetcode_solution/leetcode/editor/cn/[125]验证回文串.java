@@ -20,7 +20,7 @@ package com.rj.leetcode_solution.leetcode.editor.cn;
 
 
 //leetcode submit region begin(Prohibit modification and deletion)
-class T125 {
+class SolutionT125 {
     public boolean isPalindrome(String s) {
         if (s == null) {
             return false;

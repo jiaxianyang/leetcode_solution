@@ -17,7 +17,7 @@ package com.rj.leetcode_solution.leetcode.editor.cn;
 
 
 //leetcode submit region begin(Prohibit modification and deletion)
-class Solution {
+class SolutionT283 {
 
     public void moveZeroes(int[] nums) {
         int j = 0;
