@@ -32,6 +32,8 @@ classes/
 *.ipr
 *.iws
 .idea
+*.png
+*.md
 
 # Eclipse artifacts, including WTP generated manifests
 .classpath

@@ -23,7 +23,7 @@ import com.rj.leetcode_solution.common.entity.ListNode;
  *     ListNode() {}
  *     ListNode(int val) { this.val = val; }
  *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
- * }
+ * }28
  */
 public class SolutionT206 {
     public ListNode reverseList(ListNode head) {
