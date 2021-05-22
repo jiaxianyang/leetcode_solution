@@ -1,6 +1,4 @@
-package com.rj.leetcode_solution.leetcode.editor.cn;
-
-//给定一个字符串，验证它是否是回文串，只考虑字母和数字字符，可以忽略字母的大小写。
+//给定一个字符串，验证它是否是回文串，只考虑字母和数字字符，可以忽略字母的大小写。 
 //
 // 说明：本题中，我们将空字符串定义为有效的回文串。 
 //
@@ -16,26 +14,35 @@ package com.rj.leetcode_solution.leetcode.editor.cn;
 //输出: false
 // 
 // Related Topics 双指针 字符串 
-// 👍 313 👎 0
+// 👍 383 👎 0
 
+package com.rj.leetcode_solution.leetcode.editor.cn;
 
-//leetcode submit region begin(Prohibit modification and deletion)
-class SolutionT125 {
-    public boolean isPalindrome(String s) {
-        if (s == null) {
-            return false;
+//java:验证回文串
+class P125ValidPalindrome {
+    public static void main(String[] args) {
+        Solution solution = new P125ValidPalindrome().new Solution();
+    }
+
+    //leetcode submit region begin(Prohibit modification and deletion)
+    class Solution {
+        public boolean isPalindrome(String s) {
+            if (s == null) {
+                return false;
+            }
+            String filterStr = filterNonNumberAndChar(s);
+            String reveredStr = reverseString(filterStr);
+            return filterStr.equalsIgnoreCase(reveredStr);
         }
-        String filterStr = filterNonNumberAndChar(s);
-        String reveredStr = reverseString(filterStr);
-        return filterStr.equalsIgnoreCase(reveredStr);
-    }
 
-    private String reverseString(String filterStr) {
-        return new StringBuilder(filterStr).reverse().toString();
-    }
+        private String reverseString(String filterStr) {
+            return new StringBuilder(filterStr).reverse().toString();
+        }
 
-    private String filterNonNumberAndChar(String s) {
-        return s.replaceAll("[^a-zA-Z0-9]", "");
+        private String filterNonNumberAndChar(String s) {
+            return s.replaceAll("[^a-zA-Z0-9]", "");
+        }
     }
-}
 //leetcode submit region end(Prohibit modification and deletion)
+
+}
