@@ -62,6 +62,21 @@ class P24SwapNodesInPairs{
  */
 class Solution {
     public ListNode swapPairs(ListNode head) {
+
+        //迭代
+        ListNode dummyHead = new ListNode(0);
+        dummyHead.next = head;
+        ListNode temp = dummyHead;
+        while (temp.next != null && temp.next.next != null) {
+            ListNode firstNode = temp.next;
+            ListNode secondNode = temp.next.next;
+            temp.next = secondNode;
+            firstNode.next = secondNode.next;
+            secondNode.next = firstNode;
+            temp = firstNode;
+        }
+        return dummyHead.next;
+
         //1.递归
 //        //1.terminator
 //        if (head == null || head.next == null) {
@@ -75,19 +90,19 @@ class Solution {
 //        //restore current status
 //        return newHead;
 
-        //2.迭代
-        ListNode dummyHead = new ListNode(0);
-        dummyHead.next = head;
-        ListNode temp = dummyHead;
-        while (temp.next != null && temp.next.next != null) {
-            ListNode node1 = temp.next;
-            ListNode node2 = temp.next.next;
-            temp.next = node2;
-            node1.next = node2.next;
-            node2.next = node1;
-            temp = node1;
-        }
-        return dummyHead.next;
+//        //2.迭代
+//        ListNode dummyHead = new ListNode(0);
+//        dummyHead.next = head;
+//        ListNode temp = dummyHead;
+//        while (temp.next != null && temp.next.next != null) {
+//            ListNode node1 = temp.next;
+//            ListNode node2 = temp.next.next;
+//            temp.next = node2;
+//            node1.next = node2.next;
+//            node2.next = node1;
+//            temp = node1;
+//        }
+//        return dummyHead.next;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
