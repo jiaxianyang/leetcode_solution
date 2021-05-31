@@ -35,13 +35,15 @@
 // 👍 1645 👎 0
 
 package com.rj.leetcode_solution.leetcode.editor.cn;
+
 //java:买卖股票的最佳时机
-class P121BestTimeToBuyAndSellStock{
-    public static void main(String[] args){
+class P121BestTimeToBuyAndSellStock {
+    public static void main(String[] args) {
         Solution solution = new P121BestTimeToBuyAndSellStock().new Solution();
     }
+
     //leetcode submit region begin(Prohibit modification and deletion)
-class Solution {
+    class Solution {
         public int maxProfit(int[] prices) {
 
             //1. 暴力
@@ -56,20 +58,50 @@ class Solution {
 //            }
 //            return maxprofit;
 
-            //2. 一次遍历 类似双指针
-            int minPrice = Integer.MAX_VALUE;
-            int maxProfit = 0;
-            for (int i = 0; i < prices.length; i++) {
-                if (prices[i] < minPrice) {
-                    minPrice = prices[i];
-                } else if (prices[i] - minPrice > maxProfit) {
-                    maxProfit = prices[i] - minPrice;
-                }
-            }
-            return maxProfit;
+            //2. 一次遍历 假设我们在弟 i 天卖股票，利润最大肯定是 在前面所有天价格最便宜的时候买入。
+//            int minPrice = Integer.MAX_VALUE;
+//            int maxProfit = 0;
+//            for (int i = 0; i < prices.length; i++) {
+//                //获取前面i 天的，价格最便宜的一天
+//                if (prices[i] < minPrice) {
+//                    minPrice = prices[i];
+//                    //比较每一天的利润
+//                } else if (prices[i] - minPrice > maxProfit) {
+//                    maxProfit = prices[i] - minPrice;
+//                }
+//            }
+//            return maxProfit;
 
+            //3. 动态规划
+
+            int length = prices.length;
+            if (length < 2) {
+                return 0;
+            }
+            int[][] dp = new int[length][2];
+
+            //dp[i][0]：规定了今天不持股，有以下两种情况：
+                //昨天不持股，今天什么都不做；
+                //昨天持股，今天卖出股票（现金数增加），
+
+            //dp[i][1]：规定了今天持股，有以下两种情况：
+                  //昨天持股，今天什么都不做（现金数与昨天一样）；
+                  //昨天不持股，今天买入股票（注意：只允许交易一次，因此手上的现金数就是当天的股价的相反数）。
+
+//            dp[i][0] 下标为 i 这天结束的时候， 不持股，手上拥有的现金数
+//            dp[i][1] 下标为 i 这天结束的时候， 持股，手上拥有的现金数
+
+            //初始化：不持股显然为0 ，持股就需要减去第一天（下标为 0）的股价
+            dp[0][0] = 0;
+            dp[0][1] = -prices[0];
+            //从第2天开始便利
+            for (int i = 1; i < length; i++) {
+                dp[i][0] = Math.max(dp[i - 1][0], dp[i - 1][1] + prices[i]);
+                dp[i][1] = Math.max(dp[i - 1][1], -prices[i]);
+            }
+            return dp[length - 1][0];
         }
-}
+    }
 //leetcode submit region end(Prohibit modification and deletion)
 
 }
