@@ -56,6 +56,9 @@ package com.rj.leetcode_solution.leetcode.editor.cn;
 
 import com.rj.leetcode_solution.common.entity.ListNode;
 
+import java.util.HashSet;
+import java.util.Set;
+
 //java:环形链表
 class P141LinkedListCycle {
     public static void main(String[] args) {
@@ -77,11 +80,14 @@ class P141LinkedListCycle {
     public class Solution {
         public boolean hasCycle(ListNode head) {
 
+            //1. 快慢指针
             if (head == null || head.next == null) {
                 return false;
             }
+
             ListNode slow = head;
             ListNode fast = head.next;
+
             while (slow != fast) {
                 if (fast == null || fast.next == null) {
                     return false;
@@ -90,6 +96,31 @@ class P141LinkedListCycle {
                 fast = fast.next.next;
             }
             return true;
+
+//            if (head == null || head.next == null) {
+//                return false;
+//            }
+//            ListNode slow = head;
+//            ListNode fast = head.next;
+//            while (slow != fast) {
+//                if (fast == null || fast.next == null) {
+//                    return false;
+//                }
+//                slow = slow.next;
+//                fast = fast.next.next;
+//            }
+//            return true;
+
+            //2. hash
+//
+//            Set<ListNode> listNodes = new HashSet<>();
+//            while (head != null) {
+//                if (!listNodes.add(head)) {
+//                    return true;
+//                }
+//                head = head.next;
+//            }
+//            return false;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
