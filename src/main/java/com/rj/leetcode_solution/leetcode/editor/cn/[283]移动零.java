@@ -16,10 +16,18 @@
 
 package com.rj.leetcode_solution.leetcode.editor.cn;
 
+import java.util.Arrays;
+
 //java:移动零
 class P283MoveZeroes {
     public static void main(String[] args) {
         Solution solution = new P283MoveZeroes().new Solution();
+        int[] nums = new int[]{5,9,4,0,9,0,0,0,2,3,6,7,8,9,10,0,9};
+        solution.moveZeroes(nums);
+        for (int i = 0; i < nums.length; i++) {
+            System.out.print(nums[i]);
+            System.out.print(" ");
+        }
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)

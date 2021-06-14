@@ -43,6 +43,9 @@
 
 package com.rj.leetcode_solution.leetcode.editor.cn;
 
+import java.util.HashMap;
+import java.util.Map;
+
 //java:两数之和
 class P1TwoSum {
     public static void main(String[] args) {
@@ -52,30 +55,32 @@ class P1TwoSum {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public int[] twoSum(int[] nums, int target) {
-            // 方法1
-            int[] a = new int[2];
-            int numsSize = nums.length;
-            for (int i = 0; i < numsSize - 1; i++) {
-                for (int j = i + 1; j < numsSize; j++) {
-                    if (nums[i] + nums[j] == target) {
-                        a[0] = i;
-                        a[1] = j;
-                        return a;
-                    }
+
+            // 方法1 暴力
+
+//            int[] a = new int[2];
+//            int numsSize = nums.length;
+//            for (int i = 0; i < numsSize - 1; i++) {
+//                for (int j = i + 1; j < numsSize; j++) {
+//                    if (nums[i] + nums[j] == target) {
+//                        a[0] = i;
+//                        a[1] = j;
+//                        return a;
+//                    }
+//                }
+//            }
+//            return new int[0];
+
+            //方法2 hash
+            Map<Integer, Integer> numsIndexMap = new HashMap<>();
+            for (int i = 0; i < nums.length; i++) {
+                int targetNum = target - nums[i];
+                if (numsIndexMap.containsKey(targetNum)) {
+                    return new int[]{numsIndexMap.get(targetNum), i};
                 }
+                numsIndexMap.put(nums[i], i);
             }
             return new int[0];
-
-            //方法2
-//        Map<Integer, Integer> numsIndexMap = new HashMap<>();
-//        for (int i = 0; i < nums.length; i++) {
-//            int targetNum = target - nums[i];
-//            if (numsIndexMap.containsKey(targetNum)) {
-//                return new int[]{numsIndexMap.get(targetNum), i};
-//            }
-//            numsIndexMap.put(nums[i], i);
-//        }
-//        return new int[0];
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
