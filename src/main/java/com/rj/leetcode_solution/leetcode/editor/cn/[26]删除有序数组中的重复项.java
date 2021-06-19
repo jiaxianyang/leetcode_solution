@@ -74,19 +74,29 @@ class Solution {
 //            return j + 1;
 
             //双指针 12
-            if (nums.length == 0) {
-                return 0;
-            }
-            int fast = 1;
-            int slow = 1;
-            while (fast < nums.length) {
-                if (nums[fast] != nums[fast - 1]) {
-                    nums[slow] = nums[fast];
-                    slow++;
+//            if (nums.length == 0) {
+//                return 0;
+//            }
+//            int fast = 1;
+//            int slow = 1;
+//            while (fast < nums.length) {
+//                if (nums[fast] != nums[fast - 1]) {
+//                    nums[slow] = nums[fast];
+//                    slow++;
+//                }
+//                fast++;
+//            }
+//            return slow;
+
+            int i = 0, j = 1;
+            while (j < nums.length) {
+                if (nums[i] == nums[j]) {
+                    j++;
+                } else {
+                    nums[++i] = nums[j];
                 }
-                fast++;
             }
-            return slow;
+            return i + 1;
         }
 }
 //leetcode submit region end(Prohibit modification and deletion)
