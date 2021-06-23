@@ -85,9 +85,11 @@ class P20ValidParentheses {
                     put(')', '(');
                 }
             };
+
             Deque<Character> stack = new ArrayDeque<>();
             for (int i = 0; i < s.length(); i++) {
                 char ch = s.charAt(i);
+                //如果存在闭合括号， 那么前面一定有开括号
                 if (pair.containsKey(ch)) {
                     if (stack.isEmpty() || !stack.peek().equals(pair.get(ch))) {
                         return false;
