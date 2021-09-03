@@ -31,6 +31,10 @@
 // Related Topics 栈 数组 双指针 动态规划 单调栈 👍 2634 👎 0
 
 package com.rj.leetcode_solution.leetcode.editor.cn;
+
+import java.util.Deque;
+import java.util.LinkedList;
+
 //java:接雨水
 class P42TrappingRainWater{
     public static void main(String[] args){
@@ -58,23 +62,42 @@ class Solution {
 //        return ans;
 
         //2. 动态规划 暴力法，每次都要从新计算左面和右面最高的柱子，是否可以计算出来
-        if (height == null || height.length == 0) {
-            return 0;
-        }
+//        if (height == null || height.length == 0) {
+//            return 0;
+//        }
+//        int ans = 0;
+//        int size = height.length;
+//        int[] leftMaxArr = new int[size];
+//        int[] rightMaxArr = new int[size];
+//        leftMaxArr[0] = height[0];
+//        for (int i = 1; i < size; i++) {
+//            leftMaxArr[i] = Math.max(height[i], leftMaxArr[i - 1]);
+//        }
+//        rightMaxArr[size - 1] = height[size - 1];
+//        for (int i = size - 2; i >= 0; i--) {
+//            rightMaxArr[i] = Math.max(height[i], rightMaxArr[i + 1]);
+//        }
+//        for (int i = 1; i < size - 1; i++) {
+//            ans += Math.min(leftMaxArr[i], rightMaxArr[i]) - height[i];
+//        }
+//        return ans;
+
+        //3.栈应用
         int ans = 0;
-        int size = height.length;
-        int[] leftMaxArr = new int[size];
-        int[] rightMaxArr = new int[size];
-        leftMaxArr[0] = height[0];
-        for (int i = 1; i < size; i++) {
-            leftMaxArr[i] = Math.max(height[i], leftMaxArr[i - 1]);
-        }
-        rightMaxArr[size - 1] = height[size - 1];
-        for (int i = size - 2; i >= 0; i--) {
-            rightMaxArr[i] = Math.max(height[i], rightMaxArr[i + 1]);
-        }
-        for (int i = 1; i < size - 1; i++) {
-            ans += Math.min(leftMaxArr[i], rightMaxArr[i]) - height[i];
+        Deque<Integer> stack = new LinkedList<>();
+        int n = height.length;
+        for (int i = 0; i < n; ++i) {
+            while (!stack.isEmpty() && height[i] > height[stack.peek()]) {
+                int top = stack.pop();
+                if (stack.isEmpty()) {
+                    break;
+                }
+                int left = stack.peek();
+                int currWidth = i - left - 1;
+                int currHeight = Math.min(height[left], height[i]) - height[top];
+                ans += currWidth * currHeight;
+            }
+            stack.push(i);
         }
         return ans;
     }
