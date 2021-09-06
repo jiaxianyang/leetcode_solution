@@ -52,7 +52,38 @@ class P42TrappingRainWater {
             //2. 动态规划：暴力法，每次都要从新计算左边界、右边界的最大值，存在重复计算，我们是否可以缓存起来
 //            return trapMethod2(height);
             //3.栈应用
-            return trapMethod3(height);
+//            return trapMethod3(height);
+            //4.双指针
+            return trapMethod4(height);
+        }
+
+        /**
+         *4.双指针
+         */
+        private int trapMethod4(int[] height) {
+            int left = 0;
+            int right = height.length - 1;
+            int leftMax = 0;
+            int rightMax = 0;
+            int ans = 0;
+            while (left < right) {
+                if (height[left] < height[right]) {
+                    if (height[left] > leftMax) {
+                        leftMax = height[left];
+                    } else {
+                        ans += leftMax - height[left];
+                    }
+                    left++;
+                } else {
+                    if (height[right] > rightMax) {
+                        rightMax = height[right];
+                    } else {
+                        ans += rightMax - height[right];
+                    }
+                    right--;
+                }
+            }
+            return ans;
         }
 
         /**
