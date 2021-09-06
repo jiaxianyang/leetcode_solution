@@ -32,6 +32,9 @@
 
 package com.rj.leetcode_solution.leetcode.editor.cn;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
+
 //java:接雨水
 class P42TrappingRainWater {
     public static void main(String[] args) {
@@ -47,8 +50,31 @@ class P42TrappingRainWater {
             //1. 暴力法，当前坐标的装水量获取，左边界最大值，右边界最大值 取俩边最小值，来确定当前柱子能装的水量
 //            return trapMethod1(height);
             //2. 动态规划：暴力法，每次都要从新计算左边界、右边界的最大值，存在重复计算，我们是否可以缓存起来
-            return trapMethod2(height);
+//            return trapMethod2(height);
             //3.栈应用
+            return trapMethod3(height);
+        }
+
+        /**
+         *3. 栈应用，后面的柱子高与前面的柱子才能计算出当前柱子是否能够盛水，所以能够想到用栈
+         */
+        private int trapMethod3(int[] height) {
+            Deque<Integer> stack = new ArrayDeque<>();
+            int i = 0;
+            int ans = 0;
+            while (i < height.length) {
+                while (!stack.isEmpty() && height[i] > height[stack.peek()]) {
+                    int top = stack.pop();
+                    if (stack.isEmpty()) {
+                        break;
+                    }
+                    int distance = i - stack.peek() - 1;
+                    int boundedHeight = Math.min(height[i], height[stack.peek()]) - height[top];
+                    ans += distance * boundedHeight;
+                }
+                stack.push(i++);
+            }
+            return ans;
         }
 
         /**
