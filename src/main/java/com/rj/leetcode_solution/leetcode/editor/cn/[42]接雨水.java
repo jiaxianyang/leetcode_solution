@@ -58,17 +58,63 @@ class P42TrappingRainWater {
         }
 
         /**
-         *4.双指针
+         * 4.双指针
+         * 解法详解：
+         * leftMax: 左边的最大值，它是从左往右遍历找到的
+         * rightMax: 右边的最大值，它是从右往左遍历找到的
+         * left: 从左往右处理的当前下标
+         * right: 从右往左处理的当前下表
+         * <p>
+         * 定理1：在某个位置i处，它能存的水，取决于它左右俩边最大值中较小的一个。
+         * 定理2：当我们从左往右处理left下标时，左边的最大值leftMax是可信的，但rightMax对它而言是不可信的。(由于中间状况未知，对于left下标而言，right_max未必就是它右边最大的值)
+         * 定理3：当我们从右往左处理right下标时，右边的最大值rightMax是可信的，但是leftMax对它而言是不可信的。
+         * <p>
+         * 对于left而言，它左边的最大值一定是leftMax，右边的最大值>= rigthMax, 如果leftMax < rightMax 成立，那么就可以确定当前坐标能存多少水了。无论右边将来会不会出现更大的rightMax，
+         * 都不影响结果。所以当leftMax < rightMax 时，我们就希望去处理left下标，反之，我们希望去处理right下标
          */
         private int trapMethod4(int[] height) {
+//            双指针1. 由leftMax与rightMax 决定从左还是右侧开始遍历计算面积
+//            int left = 0;
+//            int right = height.length - 1;
+//            int leftMax = 0;
+//            int rightMax = 0;
+//            int ans = 0;
+//            while (left <= right) {
+//                // 左边最大高度小于右边最大高度，左最大高度可靠，可以计算左边的当前i的装水量
+//                if (leftMax < rightMax) {
+//                    if (leftMax < height[left]) {
+//                        //当前下标的高度大于左边界的最大高度，更新leftMax，不能装水
+//                        leftMax = height[left];
+//                    } else {
+//                        ans += leftMax - height[left];
+//                    }
+//                    left++;
+//                } else {
+//                    //右边最大高度小于左边最大高度，所以右侧最大高度可靠，计算计算当前右侧i的装水量
+//                    if (rightMax < height[right]) {
+//                        //当前下标的高度大右边界的最大高度，更新rightMax，不能装水
+//                        rightMax = height[right];
+//                    } else {
+//                        ans += rightMax - height[right];
+//                    }
+//                    right--;
+//                }
+//            }
+//            return ans;
+
+
+            //双指针法：由左右下标的大小决定，从左还是从右开始循环遍历（个人不知道有什么区别）
+
             int left = 0;
             int right = height.length - 1;
             int leftMax = 0;
             int rightMax = 0;
             int ans = 0;
-            while (left < right) {
+            while (left <= right) {
+                //左侧小于右侧
                 if (height[left] < height[right]) {
                     if (height[left] > leftMax) {
+                        //更新leftMax
                         leftMax = height[left];
                     } else {
                         ans += leftMax - height[left];
@@ -87,7 +133,7 @@ class P42TrappingRainWater {
         }
 
         /**
-         *3. 栈应用，后面的柱子高与前面的柱子才能计算出当前柱子是否能够盛水，所以能够想到用栈
+         * 3. 栈应用，后面的柱子高与前面的柱子才能计算出当前柱子是否能够盛水，所以能够想到用栈
          */
         private int trapMethod3(int[] height) {
             Deque<Integer> stack = new ArrayDeque<>();
