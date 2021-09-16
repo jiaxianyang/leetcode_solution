@@ -48,30 +48,23 @@ class P641DesignCircularDeque {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class MyCircularDeque {
-
-        //1、不用设置成动态数组，使用静态数组即可
-        //2、设计head和tail 指针变量
-        //3、head == tail 成立的时候表示队列为空
-        //4、tail + 1 == head
+        //双端队列的容量
         private int capacity;
-        private int[] arr;
+        //双端队列，队首位置
         private int front;
+        //双端队列，队尾元素位置 + 1
         private int rear;
+        //数据存储使用静态数组
+        private int[] arr;
 
         /**
          * Initialize your data structure here. Set the size of the deque to be k.
          */
         public MyCircularDeque(int k) {
             capacity = k + 1;
-            arr = new int[capacity];
-            //头部指向第1 个存放元素的位置
-            //插入时，先减，再赋值
-            //删除时，索引 + 1（注意取模）
             front = 0;
-            //尾部指向下一个插入元素的位置
-            //插入时，先赋值，再加
-            //删除时，索引 - 1（注意取模）
             rear = 0;
+            arr = new int[capacity];
         }
 
         /**
@@ -105,7 +98,7 @@ class P641DesignCircularDeque {
             if (isEmpty()) {
                 return false;
             }
-            //front 被设计在数组的开头，所以是+1
+            // front 被设计在数组的开头 所以 + 1
             front = (front + 1) % capacity;
             return true;
         }
@@ -117,7 +110,7 @@ class P641DesignCircularDeque {
             if (isEmpty()) {
                 return false;
             }
-            //rear 被设计在数组的末尾，所以是-1
+            //当rear 为0 时防止数组越界
             rear = (rear - 1 + capacity) % capacity;
             return true;
         }
@@ -139,7 +132,6 @@ class P641DesignCircularDeque {
             if (isEmpty()) {
                 return -1;
             }
-            //当rear 为0 时防止数组越界
             return arr[(rear - 1 + capacity) % capacity];
         }
 
@@ -154,7 +146,7 @@ class P641DesignCircularDeque {
          * Checks whether the circular deque is full or not.
          */
         public boolean isFull() {
-            //注意：这个设计是非常经典的做法
+            //队尾下一个位置 + 1如果和front 那么代表已经满了，因为初始 front == rear 所以判断是否满的时候不能使用
             return (rear + 1) % capacity == front;
         }
     }
