@@ -55,47 +55,73 @@ package com.rj.leetcode_solution.leetcode.editor.cn;
 
 import com.rj.leetcode_solution.common.entity.TreeNode;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.List;
 
 //java:二叉树的前序遍历
-class P144BinaryTreePreorderTraversal{
-    public static void main(String[] args){
+class P144BinaryTreePreorderTraversal {
+    public static void main(String[] args) {
         Solution solution = new P144BinaryTreePreorderTraversal().new Solution();
     }
     //leetcode submit region begin(Prohibit modification and deletion)
-/**
- * Definition for a binary tree node.
- * public class TreeNode {
- *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode() {}
- *     TreeNode(int val) { this.val = val; }
- *     TreeNode(int val, TreeNode left, TreeNode right) {
- *         this.val = val;
- *         this.left = left;
- *         this.right = right;
- *     }
- * }
- */
-class Solution {
-    public List<Integer> preorderTraversal(TreeNode root) {
-        List<Integer> res = new ArrayList<>();
-        preorder(root, res);
-        return res;
-    }
 
-    //前序遍历 根    左   右
-    private void preorder(TreeNode root, List<Integer> res) {
-        if (root == null) {
-            return;
+    /**
+     * Definition for a binary tree node.
+     * public class TreeNode {
+     * int val;
+     * TreeNode left;
+     * TreeNode right;
+     * TreeNode() {}
+     * TreeNode(int val) { this.val = val; }
+     * TreeNode(int val, TreeNode left, TreeNode right) {
+     * this.val = val;
+     * this.left = left;
+     * this.right = right;
+     * }
+     * }
+     */
+    class Solution {
+
+        public List<Integer> preorderTraversal(TreeNode root) {
+            return preorderTraversal2(root);
         }
-        res.add(root.val);
-        preorder(root.left, res);
-        preorder(root.right, res);
+
+        public List<Integer> preorderTraversal1(TreeNode root) {
+            List<Integer> res = new ArrayList<>();
+            preorder(root, res);
+            return res;
+        }
+
+        //前序遍历 根    左   右
+        private void preorder(TreeNode root, List<Integer> res) {
+            if (root == null) {
+                return;
+            }
+            res.add(root.val);
+            preorder(root.left, res);
+            preorder(root.right, res);
+        }
+
+        public List<Integer> preorderTraversal2(TreeNode root) {
+            List<Integer> res = new ArrayList<>();
+            if (root == null) {
+                return res;
+            }
+            Deque<TreeNode> stack = new ArrayDeque<>();
+            while (!stack.isEmpty() || root != null) {
+                while (root != null) {
+                    res.add(root.val);
+                    stack.push(root);
+                    root = root.left;
+                }
+                root = stack.pop();
+                root = root.right;
+            }
+            return res;
+        }
     }
-}
 //leetcode submit region end(Prohibit modification and deletion)
 
 }
