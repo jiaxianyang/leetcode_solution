@@ -45,18 +45,85 @@
 
 package com.rj.leetcode_solution.leetcode.editor.cn;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Deque;
+import java.util.LinkedList;
 import java.util.List;
 
 //java:N 叉树的后序遍历
 class P590NAryTreePostorderTraversal {
     public static void main(String[] args) {
         Solution solution = new P590NAryTreePostorderTraversal().new Solution();
+        Node node = new Node();
+        node.val = 1;
+//        children1 ==========================================
+        Node children1 = new Node();
+        children1.val = 3;
+
+//        subChildren1 ==========================================
+        Node subChildren1 = new Node();
+        subChildren1.val = 5;
+        subChildren1.children = new ArrayList<>();
+
+//        subChildren2 ==========================================
+        Node subChildren2 = new Node();
+        subChildren2.val = 6;
+        subChildren2.children = new ArrayList<>();
+
+        children1.children = Arrays.asList(subChildren1, subChildren2);
+//        =============================================
+        Node children2 = new Node();
+        children2.val = 2;
+        children2.children = new ArrayList<>();
+//        ===============================================
+        Node children3 = new Node();
+        children3.val = 4;
+        children3.children = new ArrayList<>();
+
+        node.children = Arrays.asList(children1, children2, children3);
+        List<Integer> postorder = solution.postorder(node);
+        System.out.println(postorder);
     }
+
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public List<Integer> postorder(Node root) {
+            return postorder2(root);
+        }
+
+        /**
+         * 迭代方法解决
+         *
+         * @param root
+         * @return
+         */
+        private List<Integer> postorder2(Node root) {
+            LinkedList<Integer> res = new LinkedList<>();
+            if (root == null) {
+                return res;
+            }
+            Deque<Node> stack = new ArrayDeque<>();
+            stack.push(root);
+            while (!stack.isEmpty()) {
+                Node node = stack.pop();
+                res.addFirst(node.val);
+                for (int i = 0; i < node.children.size(); i++) {
+                    stack.push(node.children.get(i));
+                }
+            }
+            return res;
+        }
+
+        /**
+         * N 叉树的后序遍历  左右根
+         *
+         * @param root
+         * @return
+         */
+        public List<Integer> postorder1(Node root) {
             List<Integer> res = new ArrayList<>();
             postNodeOrder(root, res);
             return res;
