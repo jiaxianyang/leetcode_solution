@@ -35,7 +35,17 @@ class P70ClimbingStairs {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public int climbStairs(int n) {
+            //解法1. n阶台阶的方法  为 n-1 和 n-2阶 楼梯走法的和
+//            return method1(n);
 
+            //解法2. n阶台阶有多少种走法， 为n - 1 和n - 2阶楼梯走法的和，我们可以利用数组保存起来
+            return method2(n);
+        }
+
+        /**
+         * n阶台阶有多少种走法， 为n - 1 和n - 2阶楼梯走法的和，我们可以利用数组保存起来
+         */
+        private int method2(int n) {
             int[] dp = new int[n + 1];
             dp[0] = 1;
             dp[1] = 1;
@@ -43,26 +53,24 @@ class P70ClimbingStairs {
                 dp[i] = dp[i - 1] + dp[i - 2];
             }
             return dp[n];
-            // 解法1
-//        if (n <= 2) {
-//            return n;
-//        }
-//        int first = 1;
-//        int second = 2;
-//        for (int i = 3; i <= n; i++) {
-//            int third = second + first;
-//            first = second;
-//            second = third;
-//        }
-//        return second;
-            // 解法2
-//        int[] dp = new int[n + 1];
-//        dp[0] = 1;
-//        dp[1] = 1;
-//        for (int i = 2; i <= n; i++) {
-//            dp[i] = dp[i - 1] + dp[i - 2];
-//        }
-//        return dp[n];
+        }
+
+        /**
+         * n阶台阶的方法  为 n-1 和 n-2阶 楼梯走法的和
+         */
+        private int method1(int n) {
+            if (n <= 2) {
+                return n;
+            }
+            int first = 1;
+            int second = 2;
+            int result = 3;
+            for (int i = 3; i <= n; i++) {
+                result = first + second;
+                first = second;
+                second = result;
+            }
+            return result;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
