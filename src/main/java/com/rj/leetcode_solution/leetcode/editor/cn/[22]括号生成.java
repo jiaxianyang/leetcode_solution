@@ -42,12 +42,12 @@ class P22GenerateParentheses {
     class Solution {
         public List<String> generateParenthesis(int n) {
             //1. 暴力法
-//            return generateParenthesisMethod(n);
+            return generateParenthesisMethod(n);
 
             //2.递归
-            List<String> result = new ArrayList<>();
-            generate(0, 0, n, "", result);
-            return result;
+//            List<String> result = new ArrayList<>();
+//            generate(0, 0, n, "", result);
+//            return result;
         }
 
         /**
@@ -82,9 +82,9 @@ class P22GenerateParentheses {
 
 
         public List<String> generateParenthesisMethod(int n) {
-            List<String> combinations = new ArrayList<>();
-            generateAll(new char[2 * n], 0, combinations);
-            return combinations;
+            List<String> result = new ArrayList<>();
+            generateAll(new char[2 * n], 0, result);
+            return result;
         }
 
         private void generateAll(char[] current, int pos, List<String> result) {
@@ -100,6 +100,9 @@ class P22GenerateParentheses {
             }
         }
 
+        /**
+         * 校验是否是正确的括号
+         */
         private boolean valid(char[] current) {
             int balance = 0;
             for (char c : current) {
@@ -114,6 +117,7 @@ class P22GenerateParentheses {
             }
             return balance == 0;
         }
+
     }
 //leetcode submit region end(Prohibit modification and deletion)
 
