@@ -36,6 +36,8 @@ import java.util.List;
 class P22GenerateParentheses {
     public static void main(String[] args) {
         Solution solution = new P22GenerateParentheses().new Solution();
+        List<String> ans = solution.generateParenthesis(3);
+        System.out.println(ans);
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
@@ -103,7 +105,7 @@ class P22GenerateParentheses {
         }
 
 
-        public List<String> generateParenthesisMethod(int n) {
+        private List<String> generateParenthesisMethod(int n) {
             List<String> result = new ArrayList<>();
             generateAll(new char[2 * n], 0, result);
             return result;
