@@ -33,6 +33,7 @@ class P84LargestRectangleInHistogram {
     public static void main(String[] args) {
         Solution solution = new P84LargestRectangleInHistogram().new Solution();
         int[] heights = new int[]{2, 1, 5, 6, 2, 3};
+
         int area = solution.largestRectangleArea(heights);
         System.out.println(area);
     }
