@@ -44,7 +44,9 @@ class P22GenerateParentheses {
     class Solution {
         public List<String> generateParenthesis(int n) {
             //1. 暴力法
-//            return generateParenthesisMethod(n);
+//            List<String> result = new ArrayList<>();
+//            generateAll(new char[2 * n], 0, result);
+//            return result;
 
             //2.递归
 //            List<String> result = new ArrayList<>();
@@ -75,7 +77,7 @@ class P22GenerateParentheses {
         }
 
         /**
-         * 解题思路：我们想象成有很多格子，我们往里面放入左右括号，如果想要最终满足结果，那么要同事符合以下规则：
+         * 解题思路：我们想象成有很多格子，我们往里面放入左右括号，如果想要最终满足结果，那么要同时符合以下规则：
          * 1. 我们在组装结果的时候，放入的右边的括号数量不能大于左边，如果大于那么就会组装成无用的结果 所以（right < left）
          * 2. 我们放入的左括号数量不能大于n,如果大于n，最终组装的结果也是不满足的
          * 3. 当左括号数量和右括号数量相当并且都等于n的时候，为我们想要的结果
@@ -102,13 +104,6 @@ class P22GenerateParentheses {
                 generate(left, right + 1, max, str + ")", result);
             }
             //reverse status
-        }
-
-
-        private List<String> generateParenthesisMethod(int n) {
-            List<String> result = new ArrayList<>();
-            generateAll(new char[2 * n], 0, result);
-            return result;
         }
 
         private void generateAll(char[] current, int pos, List<String> result) {
