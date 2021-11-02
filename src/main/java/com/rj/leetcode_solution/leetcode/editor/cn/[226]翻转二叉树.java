@@ -55,10 +55,10 @@ class P226InvertBinaryTree {
             if (root == null) {
                 return null;
             }
-            TreeNode right = invertTree(root.right);
             TreeNode left = invertTree(root.left);
-            root.right = left;
+            TreeNode right = invertTree(root.right);
             root.left = right;
+            root.right = left;
             return root;
         }
     }
