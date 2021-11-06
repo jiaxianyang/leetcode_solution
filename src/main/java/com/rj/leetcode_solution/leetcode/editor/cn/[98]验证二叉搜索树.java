@@ -92,6 +92,7 @@ class Solution {
                 return false;
             }
             inorder = root.val;
+            //找右子树
             root = root.right;
         }
         return true;
