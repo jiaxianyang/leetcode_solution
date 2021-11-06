@@ -44,7 +44,7 @@ class P226InvertBinaryTree {
      * TreeNode() {}
      * TreeNode(int val) { this.val = val; }
      * TreeNode(int val, TreeNode left, TreeNode right) {
-     * this.val = val;
+     * this.val = val;98
      * this.left = left;
      * this.right = right;
      * }

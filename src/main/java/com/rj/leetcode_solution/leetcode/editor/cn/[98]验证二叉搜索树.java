@@ -72,17 +72,22 @@ class Solution {
         return isValidBSTinOrder(root);
     }
 
+    /**
+     * 中序遍历是左 —— 根 —— 右 根据二叉搜索树的特性，遍历的结果是递增的，根据这一特性。我们可以校验出是否是二叉搜索树
+     *
+     * @param root
+     * @return
+     */
     private boolean isValidBSTinOrder(TreeNode root) {
         Deque<TreeNode> stack = new ArrayDeque<>();
         double inorder = -Double.MAX_VALUE;
-
         while (!stack.isEmpty() || root != null) {
             while (root != null) {
                 stack.push(root);
                 root = root.left;
             }
             root = stack.pop();
-            //如果中序遍历得到的节点的值小于等于前一个inorder,说明不是二叉搜索树
+            //如果中序遍历得到的节点的值小于等于前一个inOrder，说明不是二叉搜索树
             if (root.val <= inorder) {
                 return false;
             }
