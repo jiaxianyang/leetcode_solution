@@ -2,14 +2,22 @@ package com.common.algorithm.sort;
 
 /**
  * QuickSort简介
- *
+ * <p>
  * 快速排序
+ *
  * @author jiaxianyang
  * @date 2021-11-10 13:12
  */
 public class QuickSort implements ArraySort {
 
-    public static void quickSort(int[] arr,int begin,int end) {
+    /**
+     * 快速排序也是分治的思想，每个元素的左边都是小于当前元素，右侧都是大于当前元素，那么这个数组自然是有序的
+     *
+     * @param arr   数组
+     * @param begin 起始位置
+     * @param end   末端位置
+     */
+    public static void quickSort(int[] arr, int begin, int end) {
         if (end <= begin) {
             return;
         }
@@ -18,16 +26,29 @@ public class QuickSort implements ArraySort {
         quickSort(arr, pivot + 1, end);
     }
 
+    /**
+     * 1.取标杆位置，标杆左边的元素都小于标杆元素，标杆右侧的元素都大于标杆元素
+     * 2.最后返回标杆标杆的位置
+     *
+     * @param arr   数组
+     * @param begin 起始位置
+     * @param end   末端位置
+     * @return 标杆的位置
+     */
     private static int partition(int[] arr, int begin, int end) {
         //pivot 标杆位置 ，counter: 小于pivot的元素的个数
         int pivot = end, counter = begin;
         for (int i = begin; i < end; i++) {
             if (arr[i] < arr[pivot]) {
-                int temp = arr[counter]; arr[counter] = arr[i]; arr[i] = temp;
+                int temp = arr[counter];
+                arr[counter] = arr[i];
+                arr[i] = temp;
                 counter++;
             }
         }
-        int temp = arr[pivot]; arr[pivot] = arr[counter]; arr[counter] = temp;
+        int temp = arr[pivot];
+        arr[pivot] = arr[counter];
+        arr[counter] = temp;
         return counter;
     }
 
