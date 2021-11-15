@@ -1,5 +1,7 @@
 package com.common.algorithm.sort;
 
+import com.common.utils.ArrayUtil;
+
 /**
  * MergeSort简介
  * <p>
@@ -9,6 +11,21 @@ package com.common.algorithm.sort;
  * @date 2021-11-12 11:39
  */
 public class MergeSort implements ArraySort {
+
+    public static void main(String[] args) {
+        int[] array = ArrayUtil.randomIntArray(15);
+        System.out.println("=============排序前==============");
+        for (int j : array) {
+            System.out.print(j + " ");
+        }
+        System.out.println();
+        mergeSort(array, 0, array.length - 1);
+        System.out.println("=============排序后==============");
+        for (int j : array) {
+            System.out.print(j + " ");
+        }
+    }
+
 
     /**
      * 归并排序
@@ -25,7 +42,9 @@ public class MergeSort implements ArraySort {
 
     private static void merge(int[] array, int left, int mid, int right) {
         int[] temp = new int[right - left + 1];
-        int i = left, j = mid + 1, k = 0;
+        int i = left;
+        int j = mid + 1;
+        int k = 0;
         while (i <= mid && j <= right) {
             temp[k++] = array[i] <= array[j] ? array[i++] : array[j++];
         }
