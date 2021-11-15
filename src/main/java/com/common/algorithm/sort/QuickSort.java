@@ -1,5 +1,7 @@
 package com.common.algorithm.sort;
 
+import com.common.utils.ArrayUtil;
+
 /**
  * QuickSort简介
  * <p>
@@ -9,6 +11,20 @@ package com.common.algorithm.sort;
  * @date 2021-11-10 13:12
  */
 public class QuickSort implements ArraySort {
+
+    public static void main(String[] args) {
+        int[] array = ArrayUtil.randomIntArray(15);
+        System.out.println("=============排序前==============");
+        for (int j : array) {
+            System.out.print(j + " ");
+        }
+        System.out.println();
+        quickSort(array, 0, array.length - 1);
+        System.out.println("=============排序后==============");
+        for (int j : array) {
+            System.out.print(j + " ");
+        }
+    }
 
     /**
      * 快速排序也是分治的思想，每个元素的左边都是小于当前元素，右侧都是大于当前元素，那么这个数组自然是有序的
@@ -37,7 +53,9 @@ public class QuickSort implements ArraySort {
      */
     private static int partition(int[] arr, int begin, int end) {
         //pivot 标杆位置 ，counter: 小于pivot的元素的个数
-        int pivot = end, counter = begin;
+        int pivot = end;
+        //小于标杆的坐标
+        int counter = begin;
         for (int i = begin; i < end; i++) {
             if (arr[i] < arr[pivot]) {
                 int temp = arr[counter];
@@ -46,6 +64,7 @@ public class QuickSort implements ArraySort {
                 counter++;
             }
         }
+        //counter位置左边都是小于arr[pivot]， 右边都是大于 arr[pivot]， 将arr[pivot] 互换 arr[counter]， counter就是新计算出来的标杆位置
         int temp = arr[pivot];
         arr[pivot] = arr[counter];
         arr[counter] = temp;

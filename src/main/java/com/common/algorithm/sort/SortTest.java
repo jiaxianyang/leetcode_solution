@@ -1,8 +1,6 @@
 package com.common.algorithm.sort;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import com.common.utils.ArrayUtil;
 
 public class SortTest {
     public static void main(String[] args) {
@@ -14,12 +12,7 @@ public class SortTest {
 
     private static void testSortTime(ArraySort arraySort, int arrSize) {
         for (int i = 0; i < 100; i++) {
-            List<Integer> res = new ArrayList<>(arrSize);
-            for (int j = 0; j < arrSize; j++) {
-                Random random = new Random();
-                res.add(random.nextInt(arrSize));
-            }
-            int[] arr = res.stream().mapToInt(Integer::valueOf).toArray();
+            int[] arr = ArrayUtil.randomIntArray(arrSize);
             long start = System.currentTimeMillis();
             arraySort.sortIntArray(arr);
             long end = System.currentTimeMillis();
