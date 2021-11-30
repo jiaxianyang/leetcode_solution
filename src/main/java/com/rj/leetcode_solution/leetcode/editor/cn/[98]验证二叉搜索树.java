@@ -65,11 +65,31 @@ class P98ValidateBinarySearchTree{
  */
 class Solution {
     public boolean isValidBST(TreeNode root) {
-        //方法1. 递归
+        //方法1. 递归 深度优先
 //        return isValidBST(root, Long.MIN_VALUE, Long.MAX_VALUE);
 
-        //方法2. 中序遍历
+        //方法2. 中序遍历 广度优先
         return isValidBSTinOrder(root);
+    }
+
+    /**
+     * 解题思路：二叉搜索树：节点的左子树小于右子树
+     *  1. 所以左子树节点的最大不能超过当前节点
+     *  2. 所以右子树节点要大于当前节点的值，但是不能大于当前跟节点的右父亲
+     *
+     * @param node 节点
+     * @param lower 最小边界
+     * @param upper 最大边界
+     * @return boolean
+     */
+    private boolean isValidBST(TreeNode node, long lower, long upper) {
+        if (node == null) {
+            return true;
+        }
+        if (node.val <= lower || node.val >= upper) {
+            return false;
+        }
+        return isValidBST(node.left, lower, node.val) && isValidBST(node.right, node.val, upper);
     }
 
     /**
@@ -97,29 +117,6 @@ class Solution {
         }
         return true;
     }
-
-    /**
-     * 解题思路：二叉搜索树：节点的左子树小于右子树
-     *  1. 所以左子树节点的最大不能超过当前节点
-     *  2. 所以右子树节点要大于当前节点的值，但是不能大于当前跟节点的右父亲
-     *
-     * @param node 节点
-     * @param lower 最小边界
-     * @param upper 最大边界
-     * @return boolean
-     */
-    private boolean isValidBST(TreeNode node, long lower, long upper) {
-        if (node == null) {
-            return true;
-        }
-        if (node.val <= lower || node.val >= upper) {
-            return false;
-        }
-        return isValidBST(node.left, lower, node.val) && isValidBST(node.right, node.val, upper);
-    }
-
-
-
 
 }
 //leetcode submit region end(Prohibit modification and deletion)
