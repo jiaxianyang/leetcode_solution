@@ -56,56 +56,59 @@ import java.util.LinkedList;
 import java.util.List;
 
 //java:二叉树的序列化与反序列化
-class P297SerializeAndDeserializeBinaryTree{
-    public static void main(String[] args){
+class P297SerializeAndDeserializeBinaryTree {
+    public static void main(String[] args) {
         Codec solution = new P297SerializeAndDeserializeBinaryTree().new Codec();
     }
     //leetcode submit region begin(Prohibit modification and deletion)
-/**
- * Definition for a binary tree node.
- * public class TreeNode {
- *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode(int x) { val = x; }
- * }
- */
-public class Codec {
-    public String serialize(TreeNode root) {
-        return rserialize(root, "");
-    }
 
-    public TreeNode deserialize(String data) {
-        String[] dataArray = data.split(",");
-        List<String> dataList = new LinkedList<>(Arrays.asList(dataArray));
-        return rdeserialize(dataList);
-    }
+    /**
+     * Definition for a binary tree node.
+     * public class TreeNode {
+     * int val;
+     * TreeNode left;
+     * TreeNode right;
+     * TreeNode(int x) { val = x; }
+     * }
+     */
+    public class Codec {
 
-    public String rserialize(TreeNode root, String str) {
-        if (root == null) {
-            str += "None,";
-        } else {
-            str += root.val + ",";
-            str = rserialize(root.left, str);
-            str = rserialize(root.right, str);
+        // Encodes a tree to a single string.
+        public String serialize(TreeNode root) {
+            return rserialize(root, "");
         }
-        return str;
-    }
 
-    public TreeNode rdeserialize(List<String> dataList) {
-        if (dataList.get(0).equals("None")) {
+        private String rserialize(TreeNode root, String str) {
+            if (root == null) {
+                str += "None,";
+            } else {
+                str += root.val + ",";
+                str = rserialize(root.left, str);
+                str = rserialize(root.right, str);
+            }
+            return str;
+        }
+
+        // Decodes your encoded data to tree.
+        public TreeNode deserialize(String data) {
+            String[] dataArray = data.split(",");
+            List<String> dataList = new LinkedList<>(Arrays.asList(dataArray));
+            return rdeserialize(dataList);
+        }
+
+        private TreeNode rdeserialize(List<String> dataList) {
+            if ("None".equals(dataList.get(0))) {
+                dataList.remove(0);
+                return null;
+            }
+            TreeNode root = new TreeNode(Integer.valueOf(dataList.get(0)));
             dataList.remove(0);
-            return null;
+            root.left = rdeserialize(dataList);
+            root.right = rdeserialize(dataList);
+            return root;
         }
 
-        TreeNode root = new TreeNode(Integer.parseInt(dataList.get(0)));
-        dataList.remove(0);
-        root.left = rdeserialize(dataList);
-        root.right = rdeserialize(dataList);
-
-        return root;
     }
-}
 
 // Your Codec object will be instantiated and called as such:
 // Codec ser = new Codec();
