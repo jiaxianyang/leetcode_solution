@@ -78,6 +78,7 @@ class Solution {
      * 同样，我们再从 q 节点开始不断往它的祖先移动，如果有祖先已经被访问过，即意味着这是 p 和 q 的深度最深的公共祖先，即 LCA 节点。
      */
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        //除跟节点外，每个节点的值为key, value为父节点 放入到map中，取跟节点的父节点为null，为终止条件
         dfs(root);
         while (p != null) {
             visited.add(p.val);
