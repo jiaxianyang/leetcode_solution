@@ -67,14 +67,16 @@ class P236LowestCommonAncestorOfABinaryTree{
  */
 class Solution {
 
-
-    private TreeNode ans;
-
     Map<Integer, TreeNode> parent = new HashMap<>();
     Set<Integer> visited = new HashSet<>();
     public Solution() {
     }
 
+    /**
+     * 从根节点开始遍历整棵二叉树，用哈希表记录每个节点的父节点指针。
+     * 从 p 节点开始不断往它的祖先移动，并用数据结构记录已经访问过的祖先节点。
+     * 同样，我们再从 q 节点开始不断往它的祖先移动，如果有祖先已经被访问过，即意味着这是 p 和 q 的深度最深的公共祖先，即 LCA 节点。
+     */
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
         dfs(root);
         while (p != null) {
@@ -101,33 +103,36 @@ class Solution {
         }
     }
 
-//
 //    /**
 //     * 递归
+//     * 解题思路：
+//     * 从根节点触发开始判断：
+//     * 1、如果当前节点 左子树和右子树 分别包含 p, q，那么 当前节点root就是最近公共祖先
+//     * 2、如果当前节点的值 root.val 等于p.val 或者 q.val 那么 另外一个节点不是在右子树就是在做子树里面，所以当前节点也是 最近公共祖先
+//     *
+//     * 解题关键点：当前 p 和 q 均存在于给定的二叉树中。所有 Node.val 互不相同 。p != q
 //     *
 //     * @return
 //     */
 //    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-//        this.dfs(root, p, q);
-//        return this.ans;
-//    }
-//
-//    private boolean dfs(TreeNode root, TreeNode p, TreeNode q) {
-//        //terminator
 //        if (root == null) {
-//            return false;
+//            return null;
 //        }
-//        //process current logic: left, right
-//
-//        //drill down
-//        boolean lson = dfs(root.left, p, q);
-//        boolean rson = dfs(root.right, p, q);
-//
-//        if ((lson && rson) || ((root.val == p.val || root.val == q.val) && (lson || rson))) {
-//            ans = root;
+//        if (root.val == p.val || root.val == q.val) {
+//            return root;
 //        }
-//        return lson || rson || (root.val == p.val || root.val == q.val);
-//        //reverse states
+//        TreeNode left = lowestCommonAncestor(root.left, p, q);
+//        TreeNode right = lowestCommonAncestor(root.right, p, q);
+//        if (left != null && right != null) {
+//            return root;
+//        }
+//        if (left == null) {
+//            return right;
+//        }
+//        if (right == null) {
+//            return left;
+//        }
+//        return null;
 //    }
 }
 //leetcode submit region end(Prohibit modification and deletion)
