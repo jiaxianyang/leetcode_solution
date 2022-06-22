@@ -42,34 +42,32 @@ class P47PermutationsIi{
     }
     //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
-        boolean[] vis;
 
         public List<List<Integer>> permuteUnique(int[] nums) {
             List<List<Integer>> ans = new ArrayList<>();
             List<Integer> perm = new ArrayList<>();
-            vis = new boolean[nums.length];
+            boolean[] vis = new boolean[nums.length];
             Arrays.sort(nums);
-            backTrack(nums, ans, 0, perm);
+            backTrack(nums, ans, 0, perm, vis);
             return ans;
         }
 
-        private void backTrack(int[] nums, List<List<Integer>> ans, int idx, List<Integer> perm) {
+        private void backTrack(int[] nums, List<List<Integer>> ans, int idx, List<Integer> perm, boolean[] vis) {
             if (idx == nums.length) {
                 ans.add(new ArrayList<>(perm));
             }
             for (int i = 0; i < nums.length; i++) {
-                //当前索引已经填充到排列中 或者 当前节点和前一个节点相同， 并且前一个节点没有填充到排列中（前一个节点和当前节点相同,并且前一个节点 已经试过 vis[i] = false）
-                if (vis[i] || (i > 0 && nums[i] == nums[i - 1] && !vis[i - 1])) {
+                //当前索引已经填充到排列中 或者 当前节点和前一个节点相同并且前一个节点没有填充到排列中（前一个节点和当前节点相同，并且前一个节点 已经试过 vis[i] = false）
+                if (vis[i] || (i > 0 && nums[i - 1] == nums[i] && !vis[i - 1])) {
                     continue;
                 }
                 perm.add(nums[i]);
                 vis[i] = true;
-                backTrack(nums, ans, idx + 1, perm);
+                backTrack(nums, ans, idx + 1, perm, vis);
                 vis[i] = false;
                 perm.remove(idx);
             }
         }
-
     }
 //leetcode submit region end(Prohibit modification and deletion)
 
