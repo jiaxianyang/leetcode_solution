@@ -40,23 +40,45 @@ package com.rj.leetcode_solution.leetcode.editor.cn;
 class P50PowxN{
     public static void main(String[] args){
         Solution solution = new P50PowxN().new Solution();
-        System.out.println(solution.myPow(2, -1));
+        System.out.println(solution.myPow(1.00000 ,-2147483648));
     }
     //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
         //分治
         //template: 1. terminator 2.process(split your big problem) 3.drill down(subproblems)， merge(subsult) 4. reverse states
         public double myPow(double x, int n) {
-            return n > 0 ? quickMul(x, n) : 1 / quickMul(x, -n);
+            long N = n;
+            return n > 0 ? quickMul(x, N) : 1 / quickMul(x, -N);
         }
 
-        private double quickMul(double x, int n) {
+        private double quickMul(double x, long n) {
             if (n == 0) {
                 return 1.0;
             }
             double y = quickMul(x, n / 2);
             return n % 2 == 0 ? y * y : y * y * x;
         }
+
+        //1.迭代法，关键点 int 的取值范围 为【-2147483648，2147483647】
+        // -2^31 - 2^31 - 1
+//        public double myPow(double x, int n) {
+//            long dn = n;
+//            return calMyPow(x, dn);
+//        }
+//
+//        public double calMyPow(double x, long n) {
+//            if (n < 0) {
+//                return 1.0 / calMyPow(x, -n);
+//            }
+//            double res = 1.0;
+//            for (long i = n; i !=0 ; i /= 2) {
+//                if (i % 2 != 0) {
+//                    res *= x;
+//                }
+//                x *= x;
+//            }
+//            return res;
+//        }
 
     }
 //leetcode submit region end(Prohibit modification and deletion)
