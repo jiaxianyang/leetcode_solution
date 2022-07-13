@@ -41,14 +41,23 @@ class P78Subsets{
     }
     //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
-    public List<List<Integer>> subsets(int[] nums) {
-        List<List<Integer>> ans = new ArrayList<>();
-        if (nums == null) {
+
+        /**
+         * 解题的核心思路： 和爬楼梯问题类似，第 n阶 楼梯 可能由 n -1 和 n -2  爬上来的
+         *
+         * 本题：某个index， 可以放入，也可以不放入对应的数组
+         *
+         * @param nums
+         * @return
+         */
+        public List<List<Integer>> subsets(int[] nums) {
+            List<List<Integer>> ans = new ArrayList<>();
+            if (nums == null) {
+                return ans;
+            }
+            dfs(ans, nums, new ArrayList<>(), 0);
             return ans;
         }
-        dfs(ans, nums, new ArrayList<>(), 0);
-        return ans;
-    }
 
         private void dfs(List<List<Integer>> ans, int[] nums, ArrayList<Integer> list, int index) {
             //terminator
