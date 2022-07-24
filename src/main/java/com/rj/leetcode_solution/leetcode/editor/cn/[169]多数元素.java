@@ -41,7 +41,17 @@ class P169MajorityElement{
     //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
 
-        //3、分治
+        /**
+         * 3、分治
+         * 思路：
+         * 如果数 a是数组nums的众数，如果我们将nums分成俩部分，那么a必定是至少一部分的众数。
+         * 这样一来，我们就可以使用分治法解决这个问题： 将数组分成左右俩部分
+         *
+         * 算法：
+         * 1、我们使用经典的分治算法递归求解，直到所有的子问题都是长度为1的数组。长度为1的子数组中唯一的数显然是众数，直接返回即可。
+         * 2、如果回溯后某区间的长度大于1，我们必须将左右子区间的值合并。如果他们的众数相同，那么显然这一段区间的众数是他们相同的值，
+         * 否则，我们需要比较俩个众数在整个区间内出现的次数来决定该区间的众数。
+         */
         public int majorityElement(int[] nums) {
             return majorityElementRec(nums, 0, nums.length - 1);
         }
