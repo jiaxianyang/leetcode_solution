@@ -64,6 +64,7 @@ class Solution {
                 perm.add(nums[i]);
                 vis[i] = true;
                 backTrack(nums, ans, idx + 1, perm, vis);
+                //前一个节点为已经试用过为false
                 vis[i] = false;
                 perm.remove(idx);
             }
