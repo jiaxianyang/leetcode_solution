@@ -72,40 +72,40 @@ class P433MinimumGeneticMutation {
             if (startGene.equals(endGene)) {
                 return 0;
             }
-            //基因库
-            Set<String> cnt = new HashSet<>();
-            for (String w : bank) {
-                cnt.add(w);
+            //hash表存储基因库
+            Set<String> genePool = new HashSet<>();
+            for (String gene : bank) {
+                genePool.add(gene);
             }
             //2、如果变化后的基因不存在基因库返回 -1
-            if (!cnt.contains(endGene)) {
+            if (!genePool.contains(endGene)) {
                 return -1;
             }
             Set<String> visited = new HashSet<>();
             Queue<String> queue = new LinkedList<>();
             queue.offer(startGene);
             visited.add(startGene);
-            int step = 1;
             char[] keys = {'A', 'C', 'G', 'T'};
+            int step = 1;
             while (!queue.isEmpty()) {
-                int sz = queue.size();
-                for (int i = 0; i < sz; i++) {
-                    String curr = queue.poll();
+                int currentGeneSzie = queue.size();
+                for (int i = 0; i < currentGeneSzie; i++) {
+                    String currentGene = queue.poll();
                     for (int j = 0; j < 8; j++) {
                         for (int k = 0; k < 4; k++) {
                             //基因序列8个字符，变化的字符非自己
-                            if (keys[k] != curr.charAt(j)) {
-                                StringBuilder sb = new StringBuilder(curr);
+                            if (keys[k] != currentGene.charAt(j)) {
+                                StringBuilder sb = new StringBuilder(currentGene);
                                 //突变后的基因序列
                                 sb.setCharAt(j, keys[k]);
-                                String next = sb.toString();
+                                String nextGene = sb.toString();
                                 //没有访问过 & 并且在基因序列中
-                                if (!visited.contains(next) && cnt.contains(next)) {
-                                    if (next.equals(endGene)) {
+                                if (!visited.contains(nextGene) && genePool.contains(nextGene)) {
+                                    if (nextGene.equals(endGene)) {
                                         return step;
                                     }
-                                    queue.offer(next);
-                                    visited.add(next);
+                                    queue.offer(nextGene);
+                                    visited.add(nextGene);
                                 }
                             }
                         }
