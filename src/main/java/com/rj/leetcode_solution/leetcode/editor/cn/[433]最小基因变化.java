@@ -104,6 +104,7 @@ class P433MinimumGeneticMutation {
                                     if (nextGene.equals(endGene)) {
                                         return step;
                                     }
+                                    //访问过的放入到queue中，走了几步等于循环了几次
                                     queue.offer(nextGene);
                                     visited.add(nextGene);
                                 }
@@ -111,6 +112,7 @@ class P433MinimumGeneticMutation {
                         }
                     }
                 }
+                //访问过的放入到queue中，走了几步等于循环了几次
                 step++;
             }
             return -1;
