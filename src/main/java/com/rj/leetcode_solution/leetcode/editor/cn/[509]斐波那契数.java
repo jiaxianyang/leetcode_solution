@@ -52,18 +52,45 @@ class P509FibonacciNumber{
     //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int fib(int n) {
-        if (n < 2) {
-            return n;
+        //1、最优解
+//        if (n < 2) {
+//            return n;
+//        }
+//        int p = 0, q = 0, r = 1;
+//        for (int i = 1; i < n; i++) {
+//            p = q;
+//            q = r;
+//            r = p + q;
+//        }
+//        return r;
+
+        //2、暴力递归, 重复计算，不推荐
+//        if (n == 1 || n == 2) {
+//            return 1;
+//        }
+//        return fib(n - 1) + fib(n - 2);
+
+        //3、带备忘录的递归解法
+        if (n < 1) {
+            return 0;
         }
-        int p = 0, q = 0, r = 1;
-        for (int i = 1; i < n; i++) {
-            p = q;
-            q = r;
-            r = p + q;
-        }
-        return r;
+        int[] memo = new int[n + 1];
+        return helper(memo, n);
     }
-}
+
+        private int helper(int[] memo, int n) {
+            //base case
+            if (n == 1 || n == 2) {
+                return 1;
+            }
+            //已经计算过
+            if (memo[n] != 0) {
+                return memo[n];
+            }
+            memo[n] = helper(memo, n - 1) + helper(memo, n - 2);
+            return memo[n];
+        }
+    }
 //leetcode submit region end(Prohibit modification and deletion)
 
 }
