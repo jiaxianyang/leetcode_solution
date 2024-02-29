@@ -45,10 +45,12 @@ class Solution {
         int length = nums.length;
         int[] maxF = new int[length];
         int[] minF = new int[length];
-        System.arraycopy(nums, 0, maxF, 0, length);
-        System.arraycopy(nums, 0, minF, 0, length);
+        maxF[0] = nums[0];
+        minF[0] = nums[0];
         for (int i = 1; i < length; i++) {
+            //子问题: 当前最后一个元素看，前面的最大值 * 当前元素， 当前元素 ， 最小值 * 当面元素 取最大值，一定是连续乘积的最大值
             maxF[i] = Math.max(maxF[i - 1] * nums[i], Math.max(nums[i], minF[i - 1] * nums[i]));
+            //子问题: 当前最后一个元素看，前面的最小值 * 当前元素， 当前元素， 最大值 * 当前元素（正负得负数），一定是当前连续数组的最小乘积
             minF[i] = Math.min(minF[i - 1] * nums[i], Math.min(nums[i], maxF[i - 1] * nums[i]));
         }
         int ans = maxF[0];
