@@ -51,7 +51,7 @@ class P53MaximumSubarray{
 class Solution {
     public int maxSubArray(int[] nums) {
         int len = nums.length;
-        //dp[i] 表示：以nums[i]结尾的连续子数组的最大和
+        //dp[i] 表示：以nums[i]结尾的连续子数组的最大和, 分解为子问题，到最后一个元素的时候，如果前面的和为大于0 ，相加会变大，如果前面的和小于0 相加会变小。
         int[] dp = new int[len];
         dp[0] = nums[0];
         for (int i = 1; i < len; i++) {
