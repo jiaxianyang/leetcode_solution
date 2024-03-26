@@ -44,13 +44,31 @@ package com.rj.leetcode_solution.leetcode.editor.cn;
 class P213HouseRobberIi{
     public static void main(String[] args){
         Solution solution = new P213HouseRobberIi().new Solution();
+        solution.rob(new int[]{2,3,2});
     }
     //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int rob(int[] nums) {
-        return 0;
+        int length = nums.length;
+        if (length == 1) {
+            return nums[0];
+        } else if (length == 2) {
+            return Math.max(nums[0], nums[1]);
+        }
+        return Math.max(robRange(nums, 0, length - 2), robRange(nums, 1, length - 1));
     }
-}
+
+        private int robRange(int[] nums, int start, int end) {
+            int len = end - start  + 1;
+            int[] dp = new int[len + 1];
+            dp[0] = nums[start];
+            dp[1] = Math.max(nums[start], nums[start + 1]);
+            for (int i = 2; i < len; i++) {
+                dp[i] = Math.max(dp[start + i - 1], dp[start + i - 2] + nums[start + i]);
+            }
+            return dp[len - 1];
+        }
+    }
 //leetcode submit region end(Prohibit modification and deletion)
 
 }
