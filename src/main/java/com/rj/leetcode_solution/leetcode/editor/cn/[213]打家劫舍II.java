@@ -70,13 +70,16 @@ class Solution {
         }
 
 
-        //        int[] dp = new int[length];
-//        dp[0] = nums[0];
-//        dp[1] = Math.max(nums[0], nums[1]);
-//        for (int i = 2; i < length; i++) {
-//            dp[i] = Math.max(dp[i - 2] + nums[i], dp[i - 1]);
+//        private int robRange(int[] nums, int start, int end) {
+//            int first = nums[start];
+//            int second = Math.max(nums[start], nums[start + 1]);
+//            for (int i = start + 2; i <= end; i++) {
+//                int temp = second;
+//                second = Math.max(first + nums[i], second);
+//                first = temp;
+//            }
+//            return second;
 //        }
-//        return dp[length - 1];
     }
 //leetcode submit region end(Prohibit modification and deletion)
 
