@@ -74,54 +74,25 @@ class P42TrappingRainWater {
          */
         private int trapMethod4(int[] height) {
 //            双指针1. 由leftMax与rightMax 决定从左还是右侧开始遍历计算面积
-//            int left = 0;
-//            int right = height.length - 1;
-//            int leftMax = 0;
-//            int rightMax = 0;
-//            int ans = 0;
-//            while (left <= right) {
-//                // 左边最大高度小于右边最大高度，左最大高度可靠，可以计算左边的当前i的装水量
-//                if (leftMax < rightMax) {
-//                    if (leftMax < height[left]) {
-//                        //当前下标的高度大于左边界的最大高度，更新leftMax，不能装水
-//                        leftMax = height[left];
-//                    } else {
-//                        ans += leftMax - height[left];
-//                    }
-//                    left++;
-//                } else {
-//                    //右边最大高度小于左边最大高度，所以右侧最大高度可靠，计算计算当前右侧i的装水量
-//                    if (rightMax < height[right]) {
-//                        //当前下标的高度大右边界的最大高度，更新rightMax，不能装水
-//                        rightMax = height[right];
-//                    } else {
-//                        ans += rightMax - height[right];
-//                    }
-//                    right--;
-//                }
-//            }
-//            return ans;
-
-
-            //双指针法：由左右下标的大小决定，从左还是从右开始循环遍历（个人不知道有什么区别）
-
             int left = 0;
             int right = height.length - 1;
             int leftMax = 0;
             int rightMax = 0;
             int ans = 0;
             while (left <= right) {
-                //左侧小于右侧
-                if (height[left] < height[right]) {
-                    if (height[left] > leftMax) {
-                        //更新leftMax
+                // 左边最大高度小于右边最大高度，左最大高度可靠，可以计算左边的当前i的装水量
+                if (leftMax < rightMax) {
+                    if (leftMax < height[left]) {
+                        //当前下标的高度大于左边界的最大高度，更新leftMax，不能装水
                         leftMax = height[left];
                     } else {
                         ans += leftMax - height[left];
                     }
                     left++;
                 } else {
-                    if (height[right] > rightMax) {
+                    //右边最大高度小于左边最大高度，所以右侧最大高度可靠，计算计算当前右侧i的装水量
+                    if (rightMax < height[right]) {
+                        //当前下标的高度大右边界的最大高度，更新rightMax，不能装水
                         rightMax = height[right];
                     } else {
                         ans += rightMax - height[right];
