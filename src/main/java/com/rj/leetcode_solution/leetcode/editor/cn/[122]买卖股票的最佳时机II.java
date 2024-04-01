@@ -57,25 +57,24 @@ class P122BestTimeToBuyAndSellStockIi {
         }
 
         private int methodDp(int[] prices) {
+//            k 无限大 k  与 k - 1 相同 buy 买的时候减一
+//            dp[i][k][0] = Math.max(dp[i- 1][k][0], dp[i - 1][k][1] + prices[i]);
+//            dp[i][k][1] = Math.max(dp[i- 1][k][1], dp[i - 1][k - 1][0] - prices[i]);
+//                        = Math.max(dp[i - 1][k][1], dp[i - 1][k][0] - prices[i]);
+//
+//            dp[i][0] = Math.max(dp[i - 1][0], dp[i - 1][1] + prices[i]);
+//            dp[i][1] = Math.max(dp[i - 1][1], dp[i - 1][0] - prices[i]);
             int n = prices.length;
-            int dp0 = 0, dp1 = -prices[0];
+            int[][] dp = new int[n][2];
+            dp[0][0] = 0;
+            dp[0][1] = -prices[0];
             for (int i = 1; i < n; i++) {
-                int newDp0 = Math.max(dp0, dp1 + prices[i]);
-                int newDp1 = Math.max(dp1, dp0 - prices[i]);
-                dp0 = newDp0;
-                dp1 = newDp1;
+                dp[i][0] = Math.max(dp[i - 1][0], dp[i - 1][1] + prices[i]);
+                dp[i][1] = Math.max(dp[i - 1][1], dp[i - 1][0] - prices[i]);
             }
-            return dp0;
+            return dp[n - 1][0];
         }
 
-        private int methodGreedy(int[] prices) {
-            int ans = 0;
-            int n = prices.length;
-            for (int i = 1; i < n; i++) {
-                ans += Math.max(0, prices[i] - prices[i - 1]);
-            }
-            return ans;
-        }
     }
 //leetcode submit region end(Prohibit modification and deletion)
 
