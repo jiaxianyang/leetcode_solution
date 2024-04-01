@@ -103,22 +103,98 @@ class P121BestTimeToBuyAndSellStock {
 //        }
 
             //动态规划优化   我们可以发现dp[i]只和前面一天的状态有关系，所以我们可以进行空间优化。
-            int len = prices.length;
-            if (len <= 1) {
-                return 0;
+//            int len = prices.length;
+//            if (len <= 1) {
+//                return 0;
+//            }
+//            int[] dp = new int[2];
+//            //第一天 不持有 、 持有
+//            dp[0] = 0;
+//            dp[1] = -prices[0];
+//            for (int i = 1; i < prices.length; i++) {
+//                //不持有 前一天不持有 或者 今天卖了 的最大值
+//                dp[0] = Math.max(dp[0], dp[1] + prices[i]);
+//                //持有  昨天持有 或者 今天卖入了
+//                dp[1] = Math.max(dp[1], -prices[i]);
+//            }
+//            //返回不持有的最大值
+//            return dp[0];
+
+            //============================================================================
+//            dp[-1][k][0] = 0
+//            解释：因为 i 是从 0 开始的，所以 i = -1 意味着还没有开始，这时候的利润当然是 0 。
+//            dp[-1][k][1] = -infinity
+//            解释：还没开始的时候，是不可能持有股票的，用负无穷表示这种不可能。
+//            dp[i][0][0] = 0
+//            解释：因为 k 是从 1 开始的，所以 k = 0 意味着根本不允许交易，这时候利润当然是 0 。
+//            dp[i][0][1] = -infinity
+//            解释：不允许交易的情况下，是不可能持有股票的，用负无穷表示这种不可能。
+
+//            base case：
+//            dp[-1][k][0] = dp[i][0][0] = 0
+//            dp[-1][k][1] = dp[i][0][1] = -infinity
+//
+//            状态转移方程：
+//            dp[i][k][0] = max(dp[i-1][k][0], dp[i-1][k][1] + prices[i])
+//            dp[i][k][1] = max(dp[i-1][k][1], dp[i-1][k-1][0] - prices[i])
+
+//            读者可能会问，这个数组索引是 -1 怎么编程表示出来呢，负无穷怎么表示呢？这都是细节问题，有很多方法实现。现在完整的框架已经完成，下面开始具体化。
+
+//            dp[i][1][0] = max(dp[i-1][1][0], dp[i-1][1][1] + prices[i])
+//            dp[i][1][1] = max(dp[i-1][1][1], dp[i-1][0][0] - prices[i])
+//                    = max(dp[i-1][1][1], -prices[i])
+//            解释：k = 0 的 base case，所以 dp[i-1][0][0] = 0。
+//
+//            现在发现 k 都是 1，不会改变，即 k 对状态转移已经没有影响了。
+//            可以进行进一步化简去掉所有 k：
+//            dp[i][0] = max(dp[i-1][0], dp[i-1][1] + prices[i])
+//            dp[i][1] = max(dp[i-1][1], -prices[i])
+//            buy 的 时候  - 1；
+
+//            int length = prices.length;
+//            int[][][] dp = new int[length - 1][1][2];
+//            dp[i][k][0] = Math.max(dp[i - 1][1][0], dp[i - 1][1][1] + prices[i]);
+//            dp[i][k][1] = Math.max(dp[i - 1][1][1], dp[i - 1][0][0] - prices[i]);
+//                        = Math.max(dp[i - 1][1][1], -prices[i]);
+
+//            int n = prices.length;
+//            int[][] dp = new int[n][2];
+//            for (int i = 0; i < n; i++) {
+//                dp[i][0] = Math.max(dp[i-1][0], dp[i-1][1] + prices[i]);
+//                dp[i][1] = Math.max(dp[i-1][1], -prices[i]);
+//            }
+//            return dp[n - 1][0];
+//
+//            for (int i = 0; i < n; i++) {
+//                if (i - 1 == -1) {
+//                    dp[i][0] = 0;
+//                    // 解释：
+//                    //   dp[i][0]
+//                    // = max(dp[-1][0], dp[-1][1] + prices[i])
+//                    // = max(0, -infinity + prices[i]) = 0
+//                    dp[i][1] = -prices[i];
+//                    //解释：
+//                    //   dp[i][1]
+//                    // = max(dp[-1][1], dp[-1][0] - prices[i])
+//                    // = max(-infinity, 0 - prices[i])
+//                    // = -prices[i]
+//                    continue;
+//                }
+//                dp[i][0] = Math.max(dp[i-1][0], dp[i-1][1] + prices[i]);
+//                dp[i][1] = Math.max(dp[i-1][1], -prices[i]);
+//            }
+//            return dp[n - 1][0];
+
+
+            int n = prices.length;
+            int[][] dp = new int[n][2];
+            dp[0][0] = 0;
+            dp[0][1] = -prices[0];
+            for (int i = 1; i < n; i++) {
+                dp[i][0] = Math.max(dp[i - 1][0], dp[i - 1][1] + prices[i]);
+                dp[i][1] = Math.max(dp[i - 1][1],  - prices[i]);
             }
-            int[] dp = new int[2];
-            //第一天 不持有 、 持有
-            dp[0] = 0;
-            dp[1] = -prices[0];
-            for (int i = 1; i < prices.length; i++) {
-                //不持有 前一天不持有 或者 今天卖了 的最大值
-                dp[0] = Math.max(dp[0], dp[1] + prices[i]);
-                //持有  昨天持有 或者 今天卖入了
-                dp[1] = Math.max(dp[1], -prices[i]);
-            }
-            //返回不持有的最大值
-            return dp[0];
+            return dp[n - 1][0];
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
