@@ -120,7 +120,8 @@ class P121BestTimeToBuyAndSellStock {
 //            //返回不持有的最大值
 //            return dp[0];
 
-            //============================================================================
+            // 通用 模版 ============================================================================
+//            题解链接：https://leetcode.cn/problems/best-time-to-buy-and-sell-stock/solutions/8753/yi-ge-fang-fa-tuan-mie-6-dao-gu-piao-wen-ti-by-l-3/
 //            dp[-1][k][0] = 0
 //            解释：因为 i 是从 0 开始的，所以 i = -1 意味着还没有开始，这时候的利润当然是 0 。
 //            dp[-1][k][1] = -infinity
@@ -129,6 +130,8 @@ class P121BestTimeToBuyAndSellStock {
 //            解释：因为 k 是从 1 开始的，所以 k = 0 意味着根本不允许交易，这时候利润当然是 0 。
 //            dp[i][0][1] = -infinity
 //            解释：不允许交易的情况下，是不可能持有股票的，用负无穷表示这种不可能。
+
+//            k 无限大 k  与 k - 1 相同 buy 买的时候减一
 
 //            base case：
 //            dp[-1][k][0] = dp[i][0][0] = 0
@@ -160,12 +163,6 @@ class P121BestTimeToBuyAndSellStock {
 //            int n = prices.length;
 //            int[][] dp = new int[n][2];
 //            for (int i = 0; i < n; i++) {
-//                dp[i][0] = Math.max(dp[i-1][0], dp[i-1][1] + prices[i]);
-//                dp[i][1] = Math.max(dp[i-1][1], -prices[i]);
-//            }
-//            return dp[n - 1][0];
-//
-//            for (int i = 0; i < n; i++) {
 //                if (i - 1 == -1) {
 //                    dp[i][0] = 0;
 //                    // 解释：
@@ -185,16 +182,22 @@ class P121BestTimeToBuyAndSellStock {
 //            }
 //            return dp[n - 1][0];
 
+//            dp[i][k][0] = Math.max(dp[i - 1][k][0], dp[i - 1][k][1] + prices[i]);
+//            dp[i][k][1] = Math.max(dp[i - 1][k][1], dp[i - 1][k - 1][0] - prices[i]);
+//                        = Math.max(dp[i - 1][k][1], -prices[i])
 
-            int n = prices.length;
-            int[][] dp = new int[n][2];
-            dp[0][0] = 0;
-            dp[0][1] = -prices[0];
-            for (int i = 1; i < n; i++) {
+            int length = prices.length;
+            int[][] dp = new int[length][2];
+            for (int i = 0; i < length; i++) {
+                if (i == 0) {
+                    dp[i][0] = 0;
+                    dp[i][1] = -prices[i];
+                    continue;
+                }
                 dp[i][0] = Math.max(dp[i - 1][0], dp[i - 1][1] + prices[i]);
-                dp[i][1] = Math.max(dp[i - 1][1],  - prices[i]);
+                dp[i][1] = Math.max(dp[i - 1][1], -prices[i]);
             }
-            return dp[n - 1][0];
+            return dp[length - 1][0];
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
