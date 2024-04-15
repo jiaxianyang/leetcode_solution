@@ -39,25 +39,45 @@ package com.rj.leetcode_solution.leetcode.editor.cn;
 class P55JumpGame {
     public static void main(String[] args) {
         Solution solution = new P55JumpGame().new Solution();
+        int[] nums = {2, 3, 1, 1, 4};
+        solution.canJump(nums);
+        for (int i = nums.length - 1; i >= 0 ; i--) {
+            System.out.println(nums[i]);
+        }
+        System.out.println("===============");
+        for (int i = 0; i < nums.length; i++) {
+            System.out.println(nums[i]);
+        }
+        System.out.println("===============");
+        for (int i = 2; i <= 1; i++) {
+            System.out.println(i);
+        }
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public boolean canJump(int[] nums) {
-            if (nums == null) {
-                return false;
-            }
-            //能到达最后节点的下标，先赋值成最后一个下标
-            int canReachable = nums.length - 1;
-            //从后往前找
-            for (int i = nums.length - 1; i >= 0; i--) {
-                //如果当前节点能够到达，可以到达最后节点的坐标，那么当前节点也可以到达最后坐标
-                if (nums[i] + i >= canReachable) {
-                    canReachable = i;
+//            if (nums == null) {
+//                return false;
+//            }
+//            int canReach = nums.length - 1;
+//            for (int i = nums.length - 1; i >= 0 ; i--) {
+//                if (nums[i] + i >= canReach) {
+//                    canReach = i;
+//                }
+//            }
+//            return canReach == 0;
+            int n = nums.length;
+            int rightMost = 0;
+            for (int i = 0; i < n; i++) {
+                if (i <= rightMost) {
+                    rightMost = Math.max(rightMost, i + nums[i]);
+                    if (rightMost >= n - 1) {
+                        return true;
+                    }
                 }
             }
-            //从后往前，如果最后第0个坐标也是能够到达最后的位置，那么canReachable 为 0
-            return canReachable == 0;
+            return false;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
