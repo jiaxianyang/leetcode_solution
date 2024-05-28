@@ -104,22 +104,40 @@ class P144BinaryTreePreorderTraversal {
             preorder(root.right, res);
         }
 
+//  好的解法      https://leetcode.cn/problems/binary-tree-postorder-traversal/solutions/367420/bang-ni-dui-er-cha-shu-bu-zai-mi-mang-che-di-chi-t/
         public List<Integer> preorderTraversal2(TreeNode root) {
-            List<Integer> res = new ArrayList<>();
+//            List<Integer> res = new ArrayList<>();
+//            if (root == null) {
+//                return res;
+//            }
+//            Deque<TreeNode> stack = new ArrayDeque<>();
+//            while (!stack.isEmpty() || root != null) {
+//                while (root != null) {
+//                    res.add(root.val);
+//                    stack.push(root);
+//                    root = root.left;
+//                }
+//                root = stack.pop();
+//                root = root.right;
+//            }
+//            return res;
+            List<Integer> result = new ArrayList<>();
             if (root == null) {
-                return res;
+                return result;
             }
             Deque<TreeNode> stack = new ArrayDeque<>();
-            while (!stack.isEmpty() || root != null) {
-                while (root != null) {
-                    res.add(root.val);
-                    stack.push(root);
-                    root = root.left;
+            stack.push(root);
+            while (!stack.isEmpty()) {
+                TreeNode node = stack.pop();
+                result.add(node.val);
+                if (node.right != null) {
+                    stack.push(node.right);
                 }
-                root = stack.pop();
-                root = root.right;
+                if (node.left != null) {
+                    stack.push(node.left);
+                }
             }
-            return res;
+            return result;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)

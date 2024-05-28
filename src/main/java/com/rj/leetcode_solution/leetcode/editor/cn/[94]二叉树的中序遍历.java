@@ -91,20 +91,40 @@ class P94BinaryTreeInorderTraversal {
             inorder(root.right, res);
         }
 
+        //  好的解法      https://leetcode.cn/problems/binary-tree-postorder-traversal/solutions/367420/bang-ni-dui-er-cha-shu-bu-zai-mi-mang-che-di-chi-t/
+
         //迭代法二叉树中序遍历
         public List<Integer> inorderTraversal2(TreeNode root) {
-            List<Integer> res = new ArrayList<>();
-            Deque<TreeNode> stack = new ArrayDeque<>();
-            while (root != null || !stack.isEmpty()) {
-                while (root != null) {
-                    stack.push(root);
-                    root = root.left;
-                }
-                root = stack.pop();
-                res.add(root.val);
-                root = root.right;
+//            List<Integer> res = new ArrayList<>();
+//            Deque<TreeNode> stack = new ArrayDeque<>();
+//            while (root != null || !stack.isEmpty()) {
+//                while (root != null) {
+//                    stack.push(root);
+//                    root = root.left;
+//                }
+//                root = stack.pop();
+//                res.add(root.val);
+//                root = root.right;
+//            }
+//            return res;
+
+            List<Integer> result = new ArrayList<>();
+            if (root == null) {
+                return result;
             }
-            return res;
+            Deque<TreeNode> stack = new ArrayDeque<>();
+            TreeNode cur = root;
+            while (cur != null || !stack.isEmpty()) {
+                if (cur != null) {
+                    stack.push(cur);
+                    cur = cur.left;
+                } else {
+                    cur = stack.pop();
+                    result.add(cur.val);
+                    cur = cur.right;
+                }
+            }
+            return result;
         }
 
     }

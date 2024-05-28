@@ -20,6 +20,8 @@ import com.rj.leetcode_solution.common.entity.TreeNode;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Deque;
 import java.util.List;
 
@@ -55,28 +57,46 @@ class P145BinaryTreePostorderTraversal {
 
 //   好的解法     https://leetcode.cn/problems/binary-tree-postorder-traversal/solutions/367420/bang-ni-dui-er-cha-shu-bu-zai-mi-mang-che-di-chi-t/
         private List<Integer> postorderTraversalIteration(TreeNode root) {
-            List<Integer> ans = new ArrayList<>();
+//            List<Integer> ans = new ArrayList<>();
+//            if (root == null) {
+//                return ans;
+//            }
+//            Deque<TreeNode> stack = new ArrayDeque<>();
+//            TreeNode prev = null;
+//            while (!stack.isEmpty() || root != null) {
+//                while (root != null) {
+//                    stack.push(root);
+//                    root = root.left;
+//                }
+//                root = stack.pop();
+//                if (root.right == null || root.right == prev) {
+//                    ans.add(root.val);
+//                    prev = root;
+//                    root = null;
+//                } else {
+//                    stack.push(root);
+//                    root = root.right;
+//                }
+//            }
+//            return ans;
+            List<Integer> result = new ArrayList<>();
             if (root == null) {
-                return ans;
+                return result;
             }
             Deque<TreeNode> stack = new ArrayDeque<>();
-            TreeNode prev = null;
-            while (!stack.isEmpty() || root != null) {
-                while (root != null) {
-                    stack.push(root);
-                    root = root.left;
+            stack.push(root);
+            while (!stack.isEmpty()) {
+                TreeNode node = stack.pop();
+                result.add(node.val);
+                if (node.left != null) {
+                    stack.push(node.left);
                 }
-                root = stack.pop();
-                if (root.right == null || root.right == prev) {
-                    ans.add(root.val);
-                    prev = root;
-                    root = null;
-                } else {
-                    stack.push(root);
-                    root = root.right;
+                if (node.right != null) {
+                    stack.push(node.right);
                 }
             }
-            return ans;
+            Collections.reverse(result);
+            return result;
         }
 
         /**
