@@ -8,7 +8,16 @@ package com.common.algorithm.sort;
  * @author jiaxianyang
  * @date 2021-11-12 15:52
  */
-public class SelectionSort implements ArraySort {
+public class SelectionSort extends ArraySortHandler implements ArraySort {
+
+    public static void main(String[] args) {
+        new SelectionSort().sortTry();
+    }
+
+    @Override
+    void sortTry() {
+        super.elapsedSortTime(this::sortIntArray, 15);
+    }
 
     public static void selectionSort(int arr[]) {
         for (int i = 0; i < arr.length - 1; i++) {

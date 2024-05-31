@@ -1,7 +1,5 @@
 package com.common.algorithm.sort;
 
-import com.common.utils.ArrayUtil;
-
 /**
  * MergeSort简介
  * <p>
@@ -10,20 +8,15 @@ import com.common.utils.ArrayUtil;
  * @author jiaxianyang
  * @date 2021-11-12 11:39
  */
-public class MergeSort implements ArraySort {
+public class MergeSort extends ArraySortHandler implements ArraySort {
 
     public static void main(String[] args) {
-        int[] array = ArrayUtil.randomIntArray(15);
-        System.out.println("=============排序前==============");
-        for (int j : array) {
-            System.out.print(j + " ");
-        }
-        System.out.println();
-        mergeSort(array, 0, array.length - 1);
-        System.out.println("=============排序后==============");
-        for (int j : array) {
-            System.out.print(j + " ");
-        }
+        new MergeSort().sortTry();
+    }
+
+    @Override
+    void sortTry() {
+        super.elapsedSortTime(this::sortIntArray, 15);
     }
 
 

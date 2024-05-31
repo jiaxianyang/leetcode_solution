@@ -69,16 +69,24 @@ class P27RemoveElement{
     //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
         public int removeElement(int[] nums, int val) {
-            int start = 0;
-            int end = nums.length - 1;
-            while (start <= end) {
-                if (nums[start] == val) {
-                    nums[start] = nums[end--];
-                } else {
-                    start++;
+//            int start = 0;
+//            int end = nums.length - 1;
+//            while (start <= end) {
+//                if (nums[start] == val) {
+//                    nums[start] = nums[end--];
+//                } else {
+//                    start++;
+//                }
+//            }
+//            return start;
+            int length = nums.length;
+            int left = 0;
+            for (int right = 0; right < length; right++) {
+                if (nums[right] != val) {
+                    nums[left++] = nums[right];
                 }
             }
-            return start;
+            return left;
         }
 }
 //leetcode submit region end(Prohibit modification and deletion)

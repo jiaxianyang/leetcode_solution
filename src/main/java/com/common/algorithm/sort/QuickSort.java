@@ -1,7 +1,5 @@
 package com.common.algorithm.sort;
 
-import com.common.utils.ArrayUtil;
-
 /**
  * QuickSort简介
  * <p>
@@ -10,20 +8,15 @@ import com.common.utils.ArrayUtil;
  * @author jiaxianyang
  * @date 2021-11-10 13:12
  */
-public class QuickSort implements ArraySort {
+public class QuickSort extends ArraySortHandler implements ArraySort {
 
     public static void main(String[] args) {
-        int[] array = ArrayUtil.randomIntArray(15);
-        System.out.println("=============排序前==============");
-        for (int j : array) {
-            System.out.print(j + " ");
-        }
-        System.out.println();
-        quickSort(array, 0, array.length - 1);
-        System.out.println("=============排序后==============");
-        for (int j : array) {
-            System.out.print(j + " ");
-        }
+        new QuickSort().sortTry();
+    }
+
+    @Override
+    void sortTry() {
+        super.elapsedSortTime(this::sortIntArray, 15);
     }
 
     /**
