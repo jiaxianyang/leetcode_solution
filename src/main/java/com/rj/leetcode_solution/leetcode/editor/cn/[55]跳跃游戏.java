@@ -57,16 +57,6 @@ class P55JumpGame {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public boolean canJump(int[] nums) {
-//            if (nums == null) {
-//                return false;
-//            }
-//            int canReach = nums.length - 1;
-//            for (int i = nums.length - 1; i >= 0 ; i--) {
-//                if (nums[i] + i >= canReach) {
-//                    canReach = i;
-//                }
-//            }
-//            return canReach == 0;
             int n = nums.length;
             int rightMost = 0;
             for (int i = 0; i < n; i++) {
