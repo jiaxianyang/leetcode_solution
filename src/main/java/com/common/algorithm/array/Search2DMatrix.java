@@ -25,7 +25,7 @@ public class Search2DMatrix {
 
     public static void main(String[] args) {
         int[][] matrix = buildSorted2DArray();
-        int target = 5;
+        int target = 11;
         int[] result = searchMatrix(matrix, target);
         System.out.println("Target " + target + " found at position: [" + result[0] + ", " + result[1] + "]");
     }
@@ -92,7 +92,7 @@ public class Search2DMatrix {
         // 使用 Java 8 流创建并初始化二维数组
         int[][] matrix3 = IntStream.range(0, rows)
                 .mapToObj(i -> IntStream.range(0, cols)
-                        .map(j -> i * cols + j)
+                        .map(j -> i * cols + j + 1)
                         .toArray())
                 .toArray(int[][]::new);
 
