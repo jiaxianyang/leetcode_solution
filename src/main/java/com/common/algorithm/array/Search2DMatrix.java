@@ -9,10 +9,10 @@ import java.util.stream.IntStream;
  * 在一个递增的二维数组中查找某个数字的位置是一个经典的问题。
  * 假设你有一个二维数组，其中每行和每列都是递增的（即每行中的元素从左到右递增，每列中的元素从上到下递增），
  * 可以使用一种高效的算法来查找目标数字的位置。
- *
+ * <p>
  * 算法思路：
  * 从数组的右上角开始查找：
- *
+ * <p>
  * 1、如果当前元素等于目标值，则返回其位置。
  * 2、 如果当前元素大于目标值，则移动到左边一列。
  * 3、如果当前元素小于目标值，则移动到下一行。
@@ -22,11 +22,42 @@ import java.util.stream.IntStream;
  * @date 2024/5/8 16:43
  */
 public class Search2DMatrix {
+
     public static void main(String[] args) {
         int[][] matrix = buildSorted2DArray();
         int target = 5;
         int[] result = searchMatrix(matrix, target);
         System.out.println("Target " + target + " found at position: [" + result[0] + ", " + result[1] + "]");
+    }
+
+    /**
+     * 算法思路：
+     * 从数组的右上角开始查找：
+     * <p>
+     * 1、如果当前元素等于目标值，则返回其位置。
+     * 2、 如果当前元素大于目标值，则移动到左边一列。
+     * 3、如果当前元素小于目标值，则移动到下一行。
+     * 这种方法的时间复杂度是 O(m + n)，其中 m 是行数，n 是列数。
+     */
+    private static int[] searchMatrix(int[][] matrix, int target) {
+        if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
+            return new int[]{-1, -1};
+        }
+        int rows = matrix.length;
+        int cols = matrix[0].length;
+
+        int row = 0;
+        int col = cols - 1;
+        while (row < rows && col >= 0) {
+            if (matrix[row][col] == target) {
+                return new int[]{row, col};
+            } else if (matrix[row][col] > target) {
+                col--;
+            } else {
+                row++;
+            }
+        }
+        return new int[]{-1, -1};
     }
 
     /**
@@ -78,24 +109,4 @@ public class Search2DMatrix {
         return matrix;
     }
 
-    private static int[] searchMatrix(int[][] matrix, int target) {
-        if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
-            return new int[]{-1, -1};
-        }
-        int rows = matrix.length;
-        int cols = matrix[0].length;
-
-        int row = 0;
-        int col = cols - 1;
-        while (row < rows && col >= 0) {
-            if (matrix[row][col] == target) {
-                return new int[]{row, col};
-            } else if (matrix[row][col] > target) {
-                col--;
-            } else {
-                row++;
-            }
-        }
-        return new int[]{-1, -1};
-    }
 }
