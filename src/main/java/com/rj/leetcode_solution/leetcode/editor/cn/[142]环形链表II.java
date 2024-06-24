@@ -80,21 +80,17 @@ class P142LinkedListCycleIi{
  * }
  */
 public class Solution {
+    /**
+     * 解题思路：快慢指针 a：从链表头到相交点的距离  b：相交点到快慢指针相遇的距离  c: 从相遇的位置到相交点的距离
+     * fast =  a + n(b + c) + b
+     * slow =  a + b
+     * fast = 2*slow
+     * 2(a + b) = a + n(b + c) + b
+     *
+     * a = (n - 1)(b + c) + c;
+     * 所以：当俩个指针，每次走一步，分别从链表头到相交点的和从快慢指针相遇点开始走，当指针相遇的时候，就是相交点。
+     */
     public ListNode detectCycle(ListNode head) {
-        //1.hash
-//        ListNode pos = head;
-//        Set<ListNode> visted = new HashSet<>();
-//        while (pos != null) {
-//            if (visted.contains(pos)) {
-//                return pos;
-//            } else {
-//                visted.add(pos);
-//            }
-//            pos = pos.next;
-//        }
-//        return null;
-
-        //2.快慢指针
         if (head == null) {
             return null;
         }
