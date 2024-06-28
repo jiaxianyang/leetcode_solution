@@ -65,6 +65,7 @@ class Solution {
             //翻转需要处理的字符串
             reverse(c, l - target, l - 1);
             return new String(c);
+//            return reverseLeftWords(password, target);
         }
 
         public void reverse(char[] c, int left, int right) {
@@ -75,6 +76,19 @@ class Solution {
                 left++;
                 right--;
             }
+        }
+
+        /**
+         * 将字符串的前指定长度字符移动到字符串末尾
+         *
+         * @param password 输入的字符串
+         * @param target   要移动的字符数
+         * @return 处理后的字符串，将前部分字符移动到末尾
+         */
+        private String reverseLeftWords(String password, int target) {
+            String endStr = password.substring(0, target);
+            String replace = password.replace(endStr, "");
+            return replace + endStr;
         }
 }
 //leetcode submit region end(Prohibit modification and deletion)
