@@ -69,13 +69,16 @@ class P51NQueens {
                 solutions.add(board);
             } else {
                 for (int i = 0; i < n; i++) {
+                    //不在同一列
                     if (columns.contains(i)) {
                         continue;
                     }
+                    //不在同一左上到右下 斜线上（行坐标 减去 列坐标 相同）
                     int diagonal1 = row - i;
                     if (diagonals1.contains(diagonal1)) {
                         continue;
                     }
+                    //不在同一右上到左下 斜线上（行坐标 相加 列坐标 = 相同）
                     int diagonal2 = row + i;
                     if (diagonals2.contains(diagonal2)) {
                         continue;
