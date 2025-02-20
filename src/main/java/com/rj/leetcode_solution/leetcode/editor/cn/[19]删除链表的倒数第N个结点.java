@@ -63,15 +63,31 @@ class P19RemoveNthNodeFromEndOfList{
  */
 class Solution {
     public ListNode removeNthFromEnd(ListNode head, int n) {
-        ListNode virtualNode = new ListNode(-1);
-        virtualNode.next = head;
-        int len = getLen(head);
-        ListNode curNode = virtualNode;
-        for (int i = 1; i < len - n + 1; i++) {
-            curNode = curNode.next;
+        //2、双指针
+        ListNode dummy = new ListNode(-1, head);
+        ListNode fist = head;
+        ListNode second = dummy;
+        for (int i = 0; i < n; i++) {
+            fist = fist.next;
         }
-        curNode.next = curNode.next.next;
-        return virtualNode.next;
+        while (fist != null) {
+            fist = fist.next;
+            second = second.next;
+        }
+
+        second.next = second.next.next;
+        return dummy.next;
+
+        //1、循环取值
+//        ListNode virtualNode = new ListNode(-1);
+//        virtualNode.next = head;
+//        int len = getLen(head);
+//        ListNode curNode = virtualNode;
+//        for (int i = 1; i < len - n + 1; i++) {
+//            curNode = curNode.next;
+//        }
+//        curNode.next = curNode.next.next;
+//        return virtualNode.next;
     }
 
     private int getLen(ListNode head) {
