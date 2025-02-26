@@ -51,13 +51,13 @@ class Solution {
             jewelSet.add(jewel);
         }
         char[] stonesArray = stones.toCharArray();
-        int ret = 0;
+        int jewelsCount = 0;
         for (char stone : stonesArray) {
             if (jewelSet.contains(stone)) {
-                ret++;
+                jewelsCount++;
             }
         }
-        return ret;
+        return jewelsCount;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
