@@ -68,7 +68,7 @@ class Solution {
             dfs(ans, nums, list, index + 1); // not pick the number at this index
             list.add(nums[index]);
             dfs(ans, nums, list, index + 1); // pick the number at this index
-            //restore state
+            //restore state, 取完需要回溯
             list.remove(list.size() - 1);
         }
     }
