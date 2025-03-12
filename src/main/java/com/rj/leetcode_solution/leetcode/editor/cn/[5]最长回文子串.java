@@ -49,9 +49,11 @@ class Solution {
         //核心思想，就是如果当前是dp[i + 1][j - 1]是回文子串，那么如果array[i] == array[j] 那么，dp[i][j] 也是回文子串
         int begin = 0;
         char[] charArray = s.toCharArray();
+        //从长度为2 开始  因为 1 肯定是回文串
         for (int L = 2; L <= len; L++) {
             for (int i = 0; i < len; i++) {
                 int j = L + i - 1;
+                //i代表left坐标， j 代表right坐标 如果大于等于len超限了
                 if (j >= len) {
                     break;
                 }
